@@ -4,7 +4,7 @@
   "description": "Random past paper question giver",
   "main": "main.js",
   "scripts": {
-    "test": "./node_modules/.bin/electron main.js"
+    "start": "electron main.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
     "url": "https://github.com/EthanRiley/PastPapers/issues"
   },
   "homepage": "https://github.com/EthanRiley/PastPapers#readme",
-  "dependencies": {
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.2",
     "pdf.js": "^0.1.0"
   }
 }
