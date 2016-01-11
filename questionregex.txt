@@ -7,3 +7,16 @@
 (\d.*(\(.+\))+)(.+[^\[\]]+)(\[\d.+\]) find between sub question number and number of marks
 
 (\d.*((\(.+\).)*))(.+[^\[\]]+)(\[6.+\]) find six marker questions that start with a full question use or with subquestion.
+
+where (#id)(.+[^#e]+)(#ce) 
+#id = starting of rgx
+#e = stops at
+#ce = caputre group if you want capture after(optional)
+
+identifiesrs(#id):
+  subquestion=(\d.*(\(.+\))+)
+  subqueston+qustion=(\d.*((\(.+\).)*))
+  
+ends(#e):
+  AQA specific Ref. used for markshemes questions = \d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*) 
+  Mark No(q's in aqa exam) = \[\]
