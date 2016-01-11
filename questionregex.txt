@@ -18,5 +18,5 @@ identifiesrs(#id):
   subqueston+qustion=(\d.*((\(.+\).)*))
   
 ends(#e):
-  AQA specific Ref. used for markshemes questions = \d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*) 
+  AQA specific Ref. used for markshemes questions = (\d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*)) 
   Mark No(q's in aqa exam) = \[\]
