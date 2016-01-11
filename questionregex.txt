@@ -28,6 +28,7 @@ https://regex101.com/r/eG5qW1/12
 (\d\s*(\(\w+\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\(\w+\)\s*)+)|$)
 
 exculding metric unit convertion.
-(\d\s*(\([^g]{0,4}\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\([^g]{0,4}\)\s*)+)|$)
+(\d\s*(\([^g]{0,4}\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\([^g]{0,4}\)\s*)+)|$)v
+https://regex101.com/r/eG5qW1/17#javascript
 
 works for aqa markschemes for sci.
