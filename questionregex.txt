@@ -4,8 +4,6 @@
 
 \[(\d).+\] searches for the marks for questions use this to find end of question.
 
-(\d.*(\(.+\))+)(.+[^\[\]]+)(\[\d.+\]) find between sub question number and number of marks
-
 (\d.*((\(.+\).)*))(.+[^\[\]]+)(\[6.+\]) find six marker questions that start with a full question use or with subquestion.
 
 where (#id)(.+[^#e]+)(#ce) 
@@ -20,3 +18,16 @@ identifiesrs(#id):
 ends(#e):
   AQA specific Ref. used for markshemes questions = (\d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*)) 
   Mark No(q's in aqa exam) = \[\]
+
+\d\s*(\(\w+\)\s*)  = start of question with spaes
+(\d\s*(\([^g]{0,4}\)\s*)+) <- exculdes g which excludes metric units e.g. 2(g)
+https://regex101.com/r/eG5qW1/2
+
+gets the middle between two subquestions:
+https://regex101.com/r/eG5qW1/12
+(\d\s*(\(\w+\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\(\w+\)\s*)+)|$)
+
+exculding metric unit convertion.
+(\d\s*(\([^g]{0,4}\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\([^g]{0,4}\)\s*)+)|$)
+
+works for aqa markschemes for sci.
