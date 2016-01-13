@@ -1,0 +1,34 @@
+(\(\d+\)) searches for section numbers e.g. (06) or (8)
+
+\d.?((\(\w+\)).)+ searches for question numbers(if they have one) finds 3 (a) and 3 (a) (i) etc...
+
+\[(\d).+\] searches for the marks for questions use this to find end of question.
+
+(\d.*((\(.+\).)*))(.+[^\[\]]+)(\[6.+\]) find six marker questions that start with a full question use or with subquestion.
+
+where (#id)(.+[^#e]+)(#ce) 
+#id = starting of rgx
+#e = stops at
+#ce = caputre group if you want capture after(optional)
+
+identifiesrs(#id):
+  subquestion=(\d.*(\(.+\))+)
+  subqueston+qustion=(\d.*((\(.+\).)*))
+  
+ends(#e):
+  AQA specific Ref. used for markshemes questions = (\d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*)) 
+  Mark No(q's in aqa exam) = \[\]
+
+\d\s*(\(\w+\)\s*)  = start of question with spaes
+(\d\s*(\([^g]{0,4}\)\s*)+) <- exculdes g which excludes metric units e.g. 2(g)
+https://regex101.com/r/eG5qW1/2
+
+gets the middle between two subquestions:
+https://regex101.com/r/eG5qW1/12
+(\d\s*(\(\w+\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\(\w+\)\s*)+)|$)
+
+exculding metric unit convertion.
+(\d\s*(\([^g]{0,4}\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\([^g]{0,4}\)\s*)+)|$)v
+https://regex101.com/r/eG5qW1/17#javascript
+
+works for aqa markschemes for sci.
