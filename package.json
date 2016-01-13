@@ -22,6 +22,8 @@
   "homepage": "https://github.com/EthanRiley/PastPapers#readme",
   "devDependencies": {
     "electron-prebuilt": "^0.36.2",
+    "jquery": "^2.1.4",
+    "mdi": "^1.4.57",
     "pdf.js": "^0.1.0"
   }
 }

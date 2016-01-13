@@ -1,5 +1,11 @@
 body{
   background-color: #fefefe;
+  margin:0.25rem 0;
+  height:100vh;
+  width:100vw;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
 }
 button{
   background-color: #ffffff;
@@ -20,4 +26,45 @@ button:active{
 }
 button::selection{
   background-color: #ffffff;
+}
+a{
+  text-decoration: none;
+}
+.grid{
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  margin: auto;
+  flex-wrap: wrap;
+  padding:0.25em;
+  align-items: stretch;
+}
+.tile,.square-tile{
+  display: flex;
+  flex-basis: 25%;
+  flex-direction: row;
+  flex-grow: 1;
+  margin: 0.25em;
+  background-color: #fe3232;
+}
+.tile img,.tile video,.tile iframe,.square-tile img,
+.square-tile video,.square-tile iframe{
+  height: 100%;
+  overflow: hidden;
+}
+.tile-content{
+    font-size: 2em;
+    margin:auto;
+    color:#212121;
+}
+.tile-content::selection{
+  background-color: inherit;
+}
+.slide-up{
+  position: absolute;
+  top:125%;
+  width: 100%;
+  height:20%;
+  margin: auto;
+  transition: ease 1s;
 }

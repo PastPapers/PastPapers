@@ -8,14 +8,13 @@ var MainWindow = null;
 
 app.on('ready', function(){
 
-  MainWindow = new BrowserWindow({height:300, width:300, show:false});
+  MainWindow = new BrowserWindow({height:470, width:700, show:false });
 
   MainWindow.setMenu(null);
 
   MainWindow.loadURL("file://"+__dirname+"/app/index.html");
 
   MainWindow.on( 'closed', function(){
-        console.log("i don't like to be closed");
         MainWindow = null;
   }
   )
