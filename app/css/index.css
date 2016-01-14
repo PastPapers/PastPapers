@@ -5,7 +5,7 @@ body{
   width:100vw;
   margin: auto;
   overflow: hidden;
-  position: absolute;
+  font-family: 'open sans', sans-serif;
 }
 button{
   background-color: #ffffff;
@@ -33,11 +33,10 @@ a{
 .grid{
   display: flex;
   justify-content: center;
-  vertical-align: middle;
   margin: auto;
   flex-wrap: wrap;
   padding:0.25em;
-  align-items: stretch;
+  align-items: center;
 }
 .tile,.square-tile{
   display: flex;
@@ -53,9 +52,14 @@ a{
   overflow: hidden;
 }
 .tile-content{
-    font-size: 2em;
     margin:auto;
     color:#212121;
+    text-align: center;
+}
+.center{
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
 }
 .tile-content::selection{
   background-color: inherit;
@@ -67,4 +71,42 @@ a{
   height:20%;
   margin: auto;
   transition: ease 1s;
+}
+.slide-button{
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  color:#989898;
+  height:100vh;
+  top:0;
+}
+.slide-button:hover{
+  background-color: rgba(222, 222, 222, 0.875);
+}
+.slide-arrow{
+  z-index: 3;
+  font-size:20vh;
+  display:flex;
+  position:relative;
+  opacity: 1;
+  margin:auto;
+}
+.slide{
+  position: absolute;
+  padding:inherit;
+  width:100%;
+  text-align: center;
+  top:50%;
+  transform: translateY(-50%);
+}
+.slide:nth-child(n){
+  left:0;
+}
+.right{
+  right:0;
+  float:right;
+}
+.left{
+  left:0;
+  float:left;
 }

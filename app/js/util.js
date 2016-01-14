@@ -7,6 +7,15 @@ function fixTileSquareHeight(){
   }
 }
 
+function nextSlide(){
+  $(".onscreen").css("left", "200vw");
+  $( ".slide").css("left", "0");
+}
+
+function prevSlide(){
+
+}
+
 $(document).ready(
   function(){
     fixTileSquareHeight();
