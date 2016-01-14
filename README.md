@@ -5,3 +5,4 @@ The Examinator has a backend which does the processing of questions via regex an
 
 as most past papers are submitted as .pdf files we will be using pdf.js to read them, theese past papers will be got by a http request and updated yearly(?) the urls for theese files will be put in a fiel somewhere so they can be easly edited.
 
+REMINDER: nth child selectors jquery for slider
