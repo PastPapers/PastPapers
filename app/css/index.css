@@ -83,6 +83,9 @@ a{
 .slide-button:hover{
   background-color: rgba(222, 222, 222, 0.875);
 }
+.slide-arrow::selection{
+    background-color: rgba(0,0,0,0);
+}
 .slide-arrow{
   z-index: 3;
   font-size:20vh;
@@ -98,9 +101,13 @@ a{
   text-align: center;
   top:50%;
   transform: translateY(-50%);
+  left:200vw;
 }
-.slide:nth-child(n){
-  left:calc(calc(n -1) * 200vw);
+.slide.leftoffscreen{
+  left:-200vw;
+}
+.slide.onscreen{
+  left:0;
 }
 .right{
   right:0;
