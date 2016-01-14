@@ -100,7 +100,7 @@ a{
   transform: translateY(-50%);
 }
 .slide:nth-child(n){
-  left:0;
+  left:calc(calc(n -1) * 200vw);
 }
 .right{
   right:0;
