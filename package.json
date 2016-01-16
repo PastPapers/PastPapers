@@ -1,0 +1,30 @@
+{
+  "name": "pastpapers",
+  "version": "1.0.0",
+  "description": "Random past paper question giver",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EthanRiley/PastPapers.git"
+  },
+  "keywords": [
+    "electron",
+    "pdf"
+  ],
+  "author": "Ethan Riley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EthanRiley/PastPapers/issues"
+  },
+  "homepage": "https://github.com/EthanRiley/PastPapers#readme",
+  "devDependencies": {
+    "chart.js": "^1.0.2",
+    "electron-prebuilt": "^0.36.2",
+    "jquery": "^2.1.4",
+    "mdi": "^1.4.57",
+    "pdf.js": "^0.1.0"
+  }
+}
