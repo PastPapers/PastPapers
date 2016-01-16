@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/EthanRiley/PastPapers#readme",
   "devDependencies": {
+    "chart.js": "^1.0.2",
     "electron-prebuilt": "^0.36.2",
     "jquery": "^2.1.4",
     "mdi": "^1.4.57",

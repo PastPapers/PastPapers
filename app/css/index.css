@@ -1,5 +1,5 @@
 body{
-  background-color: #fefefe;
+  background-color: #ffffff;
   margin:0.25rem 0;
   height:100vh;
   width:100vw;
@@ -8,15 +8,20 @@ body{
   font-family: 'open sans', sans-serif;
 }
 button{
-  background-color: #ffffff;
-  box-shadow: 0 0 0.3em 0 #313131;
+  background-color: #e0e0e0;
   padding: 0.5em 1em 0.5em 1em;
-  border:none;
-  border-radius: 5%;
+  border-color: #eeeeee;
+  border-style: solid;
+  border-width: 0.01rem;
+  border-radius: 2%;
 }
 button:active{
-  background-color: #fbfbfb;
+  background-color: #eeeeee;
   border-color: none;
+  outline: none;
+}
+button:focus{
+  outline: #212121;
 }
 *:hover{
   cursor: default;
@@ -99,9 +104,13 @@ a{
   padding:inherit;
   width:100%;
   text-align: center;
+  left:200vw;
   top:50%;
   transform: translateY(-50%);
-  left:200vw;
+}
+.nocenter{
+  top:0;
+  transform: translateY(0);
 }
 .slide.leftoffscreen{
   left:-200vw;
