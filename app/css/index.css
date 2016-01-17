@@ -35,7 +35,7 @@ button::selection{
 a{
   text-decoration: none;
 }
-.grid{
+.grid, .tile-container{
   display: flex;
   justify-content: center;
   margin: auto;
@@ -43,13 +43,19 @@ a{
   padding:0.25em;
   align-items: center;
 }
+.tile-container{
+  height:97.5vh;
+  width:97.5vw;
+  align-items: stretch;
+  position: absolute;
+}
 .tile,.square-tile{
   display: flex;
   flex-basis: 25%;
   flex-direction: row;
   flex-grow: 1;
   margin: 0.25em;
-  background-color: #fe3232;
+  background-color: #bdbdbd;
 }
 .tile img,.tile video,.tile iframe,.square-tile img,
 .square-tile video,.square-tile iframe{
@@ -61,7 +67,7 @@ a{
     color:#212121;
     text-align: center;
 }
-.center{
+.center, .tile-container {
   left:50%;
   top:50%;
   transform: translate(-50%, -50%);
@@ -78,7 +84,7 @@ a{
   transition: ease 1s;
 }
 .slide-button{
-  z-index: 2;
+  z-index: 1;
   position: absolute;
   display: flex;
   color:#989898;
@@ -88,6 +94,9 @@ a{
 .slide-button:hover{
   background-color: rgba(222, 222, 222, 0.875);
 }
+.slide-button:hover > .slide-arrow{
+  opacity: 1;
+}
 .slide-arrow::selection{
     background-color: rgba(0,0,0,0);
 }
@@ -96,7 +105,7 @@ a{
   font-size:20vh;
   display:flex;
   position:relative;
-  opacity: 1;
+  opacity: 0;
   margin:auto;
 }
 .slide{
@@ -108,6 +117,8 @@ a{
   top:50%;
   transform: translateY(-50%);
 }
+
+/* js classes / html overrides. */
 .nocenter{
   top:0;
   transform: translateY(0);
@@ -125,4 +136,20 @@ a{
 .left{
   left:0;
   float:left;
+}
+.setuptable{
+  width:100vw;
+}
+
+/* ghost class to show slide-button in js */
+.showslide-button{
+
+}
+.showslidebutton > .slide-arrow{
+  transition: ease 3s;
+  opacity: 1;
+}
+.showslidebutton{
+  transition: ease 3s;
+  background-color: rgba(222, 222, 222, 0.875);
 }

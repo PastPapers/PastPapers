@@ -3,7 +3,8 @@
       {
         "Name":"Biology",
         "ExamBoard":"AQA",
-        "Specfication":"abc"
+        "Specfication":"4401",
+        "HigherTier" : true
       }
     ]
 }

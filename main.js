@@ -13,7 +13,7 @@ app.on('ready', function(){
   MainWindow.setMenu(null);
 
   MainWindow.loadURL("file://"+__dirname+"/app/index.html");
-
+  MainWindow.toggleDevTools();
   MainWindow.on( 'closed', function(){
         MainWindow = null;
   }
