@@ -31,4 +31,8 @@ exculding metric unit convertion.
 (\d\s*(\([^g]{0,4}\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\([^g]{0,4}\)\s*)+)|$)v
 https://regex101.com/r/eG5qW1/17#javascript
 
+Edexcel Questions(maths):
+  (\(.+\d\smarks\))*(([\w\W]*?))(?:(\(.+\d\smarks\))|$)
+
+
 works for aqa markschemes for sci.
