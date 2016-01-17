@@ -35,5 +35,7 @@ Edexcel Questions(maths):
   (\(.+\d\smarks\))*(([\w\W]*?))(?:(\(.+\d\smarks\))|$)
 Edexcel Subquestions:
   (\(\w\))(([\w\W]*?))(?:(\(\d\)|$))
+connected:
+  (\(.+\d\smarks\))*(([\w\W]*?))(?:(\(.+\d\smarks\))|$)
 
 works for aqa markschemes for sci.
