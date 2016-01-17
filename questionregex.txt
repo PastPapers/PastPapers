@@ -33,6 +33,7 @@ https://regex101.com/r/eG5qW1/17#javascript
 
 Edexcel Questions(maths):
   (\(.+\d\smarks\))*(([\w\W]*?))(?:(\(.+\d\smarks\))|$)
-
+Edexcel Subquestions:
+  (\(\w\))(([\w\W]*?))(?:(\(\d\)|$))
 
 works for aqa markschemes for sci.
