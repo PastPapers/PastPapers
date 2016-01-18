@@ -6,7 +6,7 @@
 
 (\d.*((\(.+\).)*))(.+[^\[\]]+)(\[6.+\]) find six marker questions that start with a full question use or with subquestion.
 
-where (#id)(.+[^#e]+)(#ce) 
+where (#id)(.+[^#e]+)(#ce)
 #id = starting of rgx
 #e = stops at
 #ce = caputre group if you want capture after(optional)
@@ -14,9 +14,9 @@ where (#id)(.+[^#e]+)(#ce)
 identifiesrs(#id):
   subquestion=(\d.*(\(.+\))+)
   subqueston+qustion=(\d.*((\(.+\).)*))
-  
+
 ends(#e):
-  AQA specific Ref. used for markshemes questions = (\d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*)) 
+  AQA specific Ref. used for markshemes questions = (\d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*))
   Mark No(q's in aqa exam) = \[\]
 
 \d\s*(\(\w+\)\s*)  = start of question with spaes
@@ -32,3 +32,10 @@ exculding metric unit convertion.
 https://regex101.com/r/eG5qW1/17#javascript
 
 works for aqa markschemes for sci.
+
+Edexcel Questions(maths):
+  (\(.+\d\smarks\))*(([\w\W]*?))(?:(\(.+\d\smarks\))|$)
+Edexcel Subquestions:
+  (\(\w\))(([\w\W]*?))(?:(\(\d\)|$))
+connected:
+  (\(.+\d\smarks\))*(([\w\W]*?))(?:(\(.+\d\smarks\))|$)
