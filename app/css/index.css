@@ -90,6 +90,7 @@ a{
   color:#989898;
   height:100vh;
   top:0;
+  transition: background-color ease 0.25s;
 }
 .slide-button:hover{
   background-color: rgba(222, 222, 222, 0.875);
@@ -107,6 +108,7 @@ a{
   position:relative;
   opacity: 0;
   margin:auto;
+  transition: background-color ease 0.5s;
 }
 .slide{
   position: absolute;
@@ -145,11 +147,29 @@ a{
 .showslide-button{
 
 }
+.slidebutton-fadeout{
+
+}
+.slidebutton-fadein{
+
+}
+/* actual js classes used */
 .showslidebutton > .slide-arrow{
-  transition: ease 3s;
   opacity: 1;
 }
 .showslidebutton{
-  transition: ease 3s;
   background-color: rgba(222, 222, 222, 0.875);
+}
+
+.slidebuttonFadeout{
+  opacity: 0;
+}
+.slidebuttonFadein{
+  opacity: 1;
+}
+.slidebuttonFadeout, .slidebuttonFadein{
+    transition: opacity 3s ease;
+}
+.slidebuttonFadeout:hover, .slidebuttonFadein:hover{
+  opacity:1
 }
