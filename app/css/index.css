@@ -153,6 +153,13 @@ a{
 .slidebutton-fadein{
 
 }
+.slide-end{
+
+}
+.start-slide{
+  
+}
+
 /* actual js classes used */
 .showslidebutton > .slide-arrow{
   opacity: 1;
@@ -171,5 +178,6 @@ a{
     transition: opacity 3s ease;
 }
 .slidebuttonFadeout:hover, .slidebuttonFadein:hover{
+  transition: opacity 0.25s ease;
   opacity:1
 }

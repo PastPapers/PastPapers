@@ -1,12 +1,28 @@
 "use strict"
 window.$ = window.jQuery = require("jquery");
 
-var replayTransitionOnFocus = Array();
+window.lastFocus = document.hasFocus();
+function documentFocus(Event){
+	if(lastFocus == document.hasFocus()){return;}
+
+	lastFocus = !lastFocus;
+	Event();
+}
 
 function xor(a,b){
   return (a ? 1 : 0)^(b ? 1 : 0);
 }
 
+
+function searchRequest(Request){
+	var matches = Array();
+  for(var i =0; i < Request.length; i++){
+  	if(Request[i].search($(".search").val()) !== -1){
+				matches.push(Request[i]);
+    }
+  }
+	return matches;
+}
 function fixTileSquareHeight(){
   if($(".square-tile")[0]){
     var width = $(".square-tile").width().toString();
@@ -47,7 +63,6 @@ var slide =0;
 function nextSlide(){
   var slides = $(".slide").size();
 
-
   $(".slide.onscreen").addClass("leftoffscreen");
   $(".slide.onscreen.leftoffscreen").removeClass("onscreen");
 
@@ -55,6 +70,7 @@ function nextSlide(){
   slide = slide%slides;
 
   $(".slide:nth-of-type("+(slide+1).toString()+")").addClass("onscreen");
+
 }
 
 function prevSlide(){
@@ -64,12 +80,11 @@ function prevSlide(){
 
   --slide;
   slide=((slide%slides)+slides)%slides;
-  console.log(slide);
 
   $(".slide:nth-of-type("+(slide+1).toString()+")").addClass("onscreen");
   $(".slide.onscreen").removeClass("leftoffscreen");
-
 }
+
 
 $(document).ready(
   function(){
@@ -77,17 +92,23 @@ $(document).ready(
     checkShowSlideButton();
     checkSlideButtonAnim();
     $(".slide-button.right").click(function(){
-      nextSlide();
-      checkShowSlideButton();
-      checkSlideButtonAnim();
+      if(!$(".slide.onscreen").hasClass("slide-end")){
+        nextSlide();
+        checkShowSlideButton();
+        checkSlideButtonAnim();
+      }
     });
     $(".slide-button.left").click(function(){
-      prevSlide();
-      checkShowSlideButton();
-      checkSlideButtonAnim();
+      if(!$(".slide.onscreen").hasClass("start-slide")){
+        prevSlide();
+        checkShowSlideButton();
+        checkSlideButtonAnim();
+	  }
     });
   }
 )
+
+setInterval(function(){documentFocus(checkSlideButtonAnim)}, 200);
 
 const remote = require("electron").remote;
 var CurrentWin = remote.getCurrentWindow()
