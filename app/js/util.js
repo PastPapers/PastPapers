@@ -33,19 +33,21 @@ function arraySearchRequest(SearchInputId, Request, JsonVar){
 						matches.push(Request[i]);
 				}
 			}
-			else{
+		else{
 				console.log("array");
-				if(searchRequest(SearchInputId, Request[i][JsonVar[v]])){
-					matches.push(Request[i]);
+				for(var v=0; v < JsonVar.length; v++){
+					if(searchRequest(SearchInputId, Request[i][JsonVar[v]])){
+						if(!matches.indexOf(Request[i])){
+							matches.push(Request[i]);
+						}
+					}
 				}
 			}
 		}
 		else{
 			if(searchRequest(SearchInputId, Request[i])){
-					if(!matches.indexOf(Request[i])){
 						matches.push(Request[i]);
-					}
-				}
+			}
 		}
   }
 	return matches;
