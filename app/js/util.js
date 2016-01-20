@@ -34,10 +34,9 @@ function arraySearchRequest(SearchInputId, Request, JsonVar){
 				}
 			}
 		else{
-				console.log("array");
 				for(var v=0; v < JsonVar.length; v++){
 					if(searchRequest(SearchInputId, Request[i][JsonVar[v]])){
-						if(!matches.indexOf(Request[i])){
+						if(matches.indexOf(Request[i]) === -1){
 							matches.push(Request[i]);
 						}
 					}
