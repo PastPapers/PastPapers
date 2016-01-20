@@ -22,15 +22,6 @@ function searchRequest(SearchInputId, Request){
 		}
 }
 
-function searchRequests(SearchInputId, Requests){
-	for(var i=0; i < Requests.length; i++){
-		if(!searchRequest(SearchInputId, Requests[i])){
-			return false;
-		}
-	}
-	return true;
-}
-
 // @param JsonVar can be null, can be string, can be array of vars(string).
 // @param JsonVar use if want to accsess variables in JSON(toplevel) array.
 function arraySearchRequest(SearchInputId, Request, JsonVar){
@@ -44,18 +35,17 @@ function arraySearchRequest(SearchInputId, Request, JsonVar){
 			}
 			else{
 				console.log("array");
-				for(var v = 0; v < JsonVar.length; v++){
-					console.log(JsonVar[v]);
-					if(searchRequest(SearchInputId, Request[i][JsonVar[v]])){
-							matches.push(Request[i]);
-					}
+				if(searchRequest(SearchInputId, Request[i][JsonVar[v]])){
+					matches.push(Request[i]);
 				}
 			}
 		}
 		else{
 			if(searchRequest(SearchInputId, Request[i])){
-					matches.push(Request[i]);
-			}
+					if(!matches.indexOf(Request[i])){
+						matches.push(Request[i]);
+					}
+				}
 		}
   }
 	return matches;
