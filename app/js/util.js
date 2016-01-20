@@ -23,7 +23,7 @@ function searchRequest(SearchInputId, Request){
 }
 
 function searchRequests(SearchInputId, Requests){
-	for(var i=0; i < Requests.length, i++){
+	for(var i=0; i < Requests.length; i++){
 		if(!searchRequest(SearchInputId, Requests[i])){
 			return false;
 		}
