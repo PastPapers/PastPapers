@@ -13,16 +13,52 @@ function xor(a,b){
   return (a ? 1 : 0)^(b ? 1 : 0);
 }
 
+function searchRequest(SearchInputId, Request){
+		if(Request.search($(SearchInputId).val()) !== -1){
+				return true;
+		}
+		else{
+			return false;
+		}
+}
 
-function searchRequest(Request){
+function searchRequests(SearchInputId, Requests){
+	for(var i=0; i < Requests.length, i++){
+		if(!searchRequest(SearchInputId, Requests[i])){
+			return false;
+		}
+	}
+	return true;
+}
+
+// @param JsonVar can be null, can be string, can be array of vars(string).
+// @param JsonVar use if want to accsess variables in JSON(toplevel) array.
+function arraySearchRequest(SearchInputId, Request, JsonVar){
 	var matches = Array();
   for(var i =0; i < Request.length; i++){
-  	if(Request[i].search($(".search").val()) !== -1){
-				matches.push(Request[i]);
-    }
+		if(typeof(JsonVar) !== 'undefined'){
+			if(JsonVar.constructor !== Array){
+				if(searchRequest(SearchInputId, Request[i][JsonVar])){
+						matches.push(Request[i]);
+				}
+			}
+			else{
+				for(var v = 0; v < JsonVar.length; i++){
+					if(searchRequest(SearchInputId, Request[i][JsonVar[v]])){
+							matches.push(Request[i]);
+					}
+				}
+			}
+		}
+		else{
+			if(searchRequest(SearchInputId, Request[i])){
+					matches.push(Request[i]);
+			}
+		}
   }
 	return matches;
 }
+
 function fixTileSquareHeight(){
   if($(".square-tile")[0]){
     var width = $(".square-tile").width().toString();
