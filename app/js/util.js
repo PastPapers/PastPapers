@@ -1,3 +1,27 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016 Ethan Riley
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 "use strict"
 window.$ = window.jQuery = require("jquery");
 
@@ -9,23 +33,13 @@ function documentFocus(Event){
 	Event();
 }
 
-$.get("http://ppapi.lexteam.xyz/papers", function(data){
-	window.masterjson = data;
-});
-
-console.log(window.masterjson);
-
 function xor(a,b){
   return (a ? 1 : 0)^(b ? 1 : 0);
 }
 
 function searchRequest(SearchInputId, Request){
-		if(Request.search($(SearchInputId).val()) !== -1){
-				return true;
-		}
-		else{
-			return false;
-		}
+		var searchRgx = new RegExp($(SearchInputId).val(), "gi");
+		return searchRgx.test(Request);
 }
 
 // @param JsonVar can be null, can be string, can be array of vars(string).
@@ -56,11 +70,16 @@ function arraySearchRequest(SearchInputId, Request, JsonVar){
 			}
 		}
   }
-	return matches;
+	if(matches.length > 0){
+		return matches;
+	}
+	else{
+		return false;
+	}
 }
 
 
-function fixTileSquareHeight(){
+function fixTileSquareHeight(){engauage
   if($(".square-tile")[0]){
     var width = $(".square-tile").width().toString();
     $(".square-tile").css("height", width+"px");
@@ -125,6 +144,9 @@ function prevSlide(){
 
 $(document).ready(
   function(){
+		$.get("http://ppapi.lexteam.xyz/v1/papers", function(data){
+			window.masterjson = data;
+		});
     fixTileSquareHeight();
     checkShowSlideButton();
     checkSlideButtonAnim();
@@ -147,9 +169,9 @@ $(document).ready(
 
 setInterval(function(){
 	$(".searchResponse").empty();
-	var searchval = arraySearchRequest(".search", window.masterjson, "subject");
-	if(searchval !== 'undefined'){
-		$(".searchResponse").append(searchval[0].subject);
+	var searchval = arraySearchRequest(".search", window.masterjson["data"], "subjectName");
+	if(searchval){
+		$(".searchResponse").append(searchval[0].subjectName);
 	}
 }, 300);
 
