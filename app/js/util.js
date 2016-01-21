@@ -9,6 +9,12 @@ function documentFocus(Event){
 	Event();
 }
 
+$.get("http://ppapi.lexteam.xyz/papers", function(data){
+	window.masterjson = data;
+});
+
+console.log(window.masterjson);
+
 function xor(a,b){
   return (a ? 1 : 0)^(b ? 1 : 0);
 }
@@ -24,6 +30,7 @@ function searchRequest(SearchInputId, Request){
 
 // @param JsonVar can be null, can be string, can be array of vars(string).
 // @param JsonVar use if want to accsess variables in JSON(toplevel) array.
+// @return false if no match
 function arraySearchRequest(SearchInputId, Request, JsonVar){
 	var matches = Array();
   for(var i =0; i < Request.length; i++){
@@ -51,6 +58,7 @@ function arraySearchRequest(SearchInputId, Request, JsonVar){
   }
 	return matches;
 }
+
 
 function fixTileSquareHeight(){
   if($(".square-tile")[0]){
@@ -136,6 +144,14 @@ $(document).ready(
     });
   }
 )
+
+setInterval(function(){
+	$(".searchResponse").empty();
+	var searchval = arraySearchRequest(".search", window.masterjson, "subject");
+	if(searchval !== 'undefined'){
+		$(".searchResponse").append(searchval[0].subject);
+	}
+}, 300);
 
 setInterval(function(){documentFocus(checkSlideButtonAnim)}, 200);
 
