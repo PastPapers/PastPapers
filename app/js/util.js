@@ -79,7 +79,7 @@ function arraySearchRequest(SearchInputId, Request, JsonVar){
 }
 
 
-function fixTileSquareHeight(){engauage
+function fixTileSquareHeight(){
   if($(".square-tile")[0]){
     var width = $(".square-tile").width().toString();
     $(".square-tile").css("height", width+"px");
@@ -171,8 +171,15 @@ setInterval(function(){
 	$(".searchResponse").empty();
 	var searchval = arraySearchRequest(".search", window.masterjson["data"], "subjectName");
 	if(searchval){
-		$(".searchResponse").append(searchval[0].subjectName);
-	}
+		for(var i = 0; i < searchval.length; i++){
+			$.each(searchval[i], function(key, val){
+						if(key !== "__LINK" && key !== "id" && key !== "subjectSafeName"){
+							$(".searchResponse").append("<th>"+val+"</th>");
+						}
+					}
+				)
+			}
+		}
 }, 300);
 
 setInterval(function(){documentFocus(checkSlideButtonAnim)}, 200);

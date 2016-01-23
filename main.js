@@ -35,7 +35,7 @@ app.on('ready', function(){
   MainWindow = new BrowserWindow({height:470, width:700, show:false });
 
   MainWindow.setMenu(null);
-  MainWindow.toggleDevTools();
+
   MainWindow.loadURL("file://"+__dirname+"/app/index.html");
   MainWindow.on( 'closed', function(){
         MainWindow = null;
