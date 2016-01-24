@@ -166,12 +166,10 @@ a{
 .setuptable{
   width:90vw;
   text-align: center;
-  margin:auto;
 }
 
 /* ghost class to show slide-button in js */
 .showslide-button{
-
 }
 .slidebutton-fadeout{
 
@@ -189,6 +187,9 @@ a{
 
 }
 .searchResponse{
+
+}
+.addSubjectButton{
 
 }
 

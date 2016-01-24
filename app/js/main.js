@@ -25,40 +25,34 @@ SOFTWARE.
 "use strict"
 window.$ = window.jQuery = require("jquery");
 
-(function(util, $, undefined){
-	  util.lastFocus = document.hasFocus();
+// Search Request.
+$.get("http://ppapi.lexteam.xyz/v1/papers", function(data){
+			window.masterjson = data;
+});
 
-		util.documentFocus = function(Event){
-			if(util.lastFocus == document.hasFocus()){return;}
 
-			util.lastFocus = !util.lastFocus;
-			Event();
-		};
+setInterval(function(){
+   jsonSearch.searchOutputAsTable(".searchResponse", ".search",
+                                    window.masterjson["data"], "subjectName",
+                                    ["id", "subjectSafeName", "__LINK"]);
+}, 300);
 
-		util.xor = function(a,b){
-		  return (a ? 1 : 0)^(b ? 1 : 0);
-		};
 
-		util.xorRemoveClass = function(SelectorA, RemovableClassA, SelectorB, ClassB)
-		{
-		  if(util.xor($(SelectorA).hasClass(RemovableClassA),
-		          $(SelectorB).hasClass(ClassB)))
-		  {
-		    $(SelectorA).removeClass(RemovableClassA);
-		  }
-		};
+// tiles.
+function fixTileSquareHeight(){
+  if($(".square-tile")[0]){
+    var width = $(".square-tile").width().toString();
+    $(".square-tile").css("height", width+"px");
+  }
+}
 
-		util.blacklistArray = function(string, blacklist){
-			for(var i=0; i < blacklist.length; i++){
-				if(string === blacklist[i]){
-					return false;
-				}
-			}
-			return true;
-		}
+$(document).ready(function(){
+  cssSlider.handleEvent();
 
-		util.whitelistArray = function(string, whitelist){
-			return !util.blacklistArray(string, whitelist);
-		}
+});
 
-}(window.util = window.util || {}, jQuery ));
+const remote = require("electron").remote;
+var CurrentWin = remote.getCurrentWindow()
+CurrentWin.on("resize", fixTileSquareHeight);
+CurrentWin.on("maximize", fixTileSquareHeight);
+CurrentWin.on("unmaximize", fixTileSquareHeight);
