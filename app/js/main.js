@@ -30,9 +30,26 @@ $.get("http://ppapi.lexteam.xyz/v1/papers", function(data){
 			window.masterjson = data;
 });
 
+function searchOutputAsTable(responseId, inputId, json, searchVar, blacklist){
+	$(responseId).empty();
+	var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
+	if(searchval){
+		for(var i = 0; i < searchval.length; i++){
+			$(responseId).append("<tr>");
+			$.each(searchval[i], function(key, val){
+						if(util.blacklistArray(key, blacklist)){
+							$(responseId).append("<th>"+val+"</th>");
+						}
+					}
+				)
+			$(responseId).append("<button>add</button>")
+			$(responseId).append("</tr>");
+			}
+		}
+}
 
 setInterval(function(){
-   jsonSearch.searchOutputAsTable(".searchResponse", ".search",
+   searchOutputAsTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
                                     ["id", "subjectSafeName", "__LINK"]);
 }, 300);
@@ -47,9 +64,8 @@ function fixTileSquareHeight(){
 }
 
 $(document).ready(function(){
-  cssSlider.handleEvent();
-
-});
+	fixTileSquareHeight();
+})
 
 const remote = require("electron").remote;
 var CurrentWin = remote.getCurrentWindow()

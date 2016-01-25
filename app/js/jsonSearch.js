@@ -41,23 +41,4 @@
 		}
 	};
 
-  // needs to be in table.
-  // reponseId needs to be empty tag to not delete data.
-  jsonSearch.searchOutputAsTable = function(responseId, inputId, json, searchVar, blacklist){
-  	$(responseId).empty();
-  	var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
-  	if(searchval){
-  		for(var i = 0; i < searchval.length; i++){
-  			$(responseId).append("<tr>");
-  			$.each(searchval[i], function(key, val){
-  				    if(util.blacklistArray(key, blacklist)){
-  							$(responseId).append("<th>"+val+"</th>");
-  						}
-  					}
-  				)
-  			$(responseId).append("</tr>");
-  			}
-  		}
-  }
-
 }(window.jsonSearch = window.jsonSearch || {}, jQuery));

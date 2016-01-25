@@ -94,4 +94,8 @@ window.$ = window.jQuery = require("jquery");
 
 }(window.cssSlider = window.cssSlider || {}, jQuery ));
 
+$(document).ready(function(){
+  cssSlider.handleEvent();
+});
+
 setInterval(function(){util.documentFocus(cssSlider.checkSlideButtonAnim)}, 200);
