@@ -100,11 +100,16 @@ $(document).ready(function(){
 });
 
 $(document).mousemove(function(e){
-  if(util.pointIntersect("button", e.pageX, e.pageY) | util.pointIntersect("a", e.pageX, e.pageY)){
+  console.log(e.pageX);
+  if(util.pointIntersect("button", e.pageX, e.pageY)){
+    console.log("INTERSECT");
     $(".slide-button").removeClass("slide-buttonhover");
   }
   else{
-    $(".slide-button").addClass("slide-buttonhover");
+    console.log("NOTERSECT");
+    if(!$(".slide-button").hasClass("slide-buttonhover")){
+        $(".slide-button").addClass("slide-buttonhover");
+    }
   }
 })
 

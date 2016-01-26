@@ -49,13 +49,15 @@ window.$ = window.jQuery = require("jquery");
 		};
 
 		util.pointIntersect = function(element1, x, y){
-			if($("element1").length){
 				var rect1 = $(element1).offset();
-				if(x < rect1.left + $(element1).width() &&
-					 y < rect1.top + $(element1).height()){
+				if(x <= rect1.left + $(element1).width() && x >= rect1.left &&
+					 y >= rect1.top && y <= rect1.top + $(element1).height()){
 						 return true;
 				}
-			}
+				var c =  rect1.left+$(element1).width();
+				console.log($(element1).width(), rect1.left);
+				var d =  rect1.top+$(element1).height();
+				console.log(d);
 			return false;
 		}
 
