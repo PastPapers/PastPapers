@@ -95,7 +95,17 @@ window.$ = window.jQuery = require("jquery");
 }(window.cssSlider = window.cssSlider || {}, jQuery ));
 
 $(document).ready(function(){
+  $(".slide-button").addClass("slide-buttonhover");
   cssSlider.handleEvent();
 });
+
+$(document).mousemove(function(e){
+  if(util.pointIntersect("button", e.pageX, e.pageY) | util.pointIntersect("a", e.pageX, e.pageY)){
+    $(".slide-button").removeClass("slide-buttonhover");
+  }
+  else{
+    $(".slide-button").addClass("slide-buttonhover");
+  }
+})
 
 setInterval(function(){util.documentFocus(cssSlider.checkSlideButtonAnim)}, 200);

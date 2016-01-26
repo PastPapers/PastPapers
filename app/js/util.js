@@ -48,12 +48,14 @@ window.$ = window.jQuery = require("jquery");
 		  }
 		};
 
-		util.pointintersect = function(element1, x, y){
-			var rect1 = $(element1).offset();
-			if(x < rect1.left + $(element1).width() &&
-				 y < rect1.top + $(element1).height()){
-					 return true;
-				 }
+		util.pointIntersect = function(element1, x, y){
+			if($("element1").length){
+				var rect1 = $(element1).offset();
+				if(x < rect1.left + $(element1).width() &&
+					 y < rect1.top + $(element1).height()){
+						 return true;
+				}
+			}
 			return false;
 		}
 
@@ -83,16 +85,4 @@ window.$ = window.jQuery = require("jquery");
 			return !util.blacklistArray(string, whitelist);
 		}
 
-		util.mouseoverNoZindex = function(element, funcRunIftrue){
-			var x = 0;
-			var y = 0;
-			$(document).mouseover(function(e){
-				x = e.pageX;
-				y = e.pageY;
-			});
-			if(util.pointintersect(element, x, y)){
-				funcRunIftrue();
-			}
-		}
-
-}(window.util = window.util || {}, jQuery ));
+}(window.util = window.util || {}, jQuery));

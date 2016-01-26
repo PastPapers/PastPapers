@@ -120,12 +120,17 @@ a{
   top:0;
   transition: background-color ease 0.25s;
 }
-.slide-button:hover{
+
+.slidebutton-hover{
+
+}
+.slidebutton-hover:hover{
   background-color: rgba(222, 222, 222, 0.875);
 }
-.slide-button:hover > .slide-arrow{
+.slidebutton-hover:hover > .slide-arrow{
   opacity: 1;
 }
+
 .slide-arrow::selection{
     background-color: rgba(0,0,0,0);
 }
