@@ -112,9 +112,9 @@ a{
   transition: ease 1s;
 }
 .slide-button{
-  z-index: auto;
+  z-index: -1;
   position: absolute;
-  display: flex;
+  display:flex;
   color:#989898;
   height:100vh;
   top:0;
@@ -122,7 +122,7 @@ a{
 }
 
 .slidebutton-hover{
-
+  z-index:10;
 }
 .slidebutton-hover:hover{
   background-color: rgba(222, 222, 222, 0.875);

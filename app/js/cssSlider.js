@@ -95,20 +95,31 @@ window.$ = window.jQuery = require("jquery");
 }(window.cssSlider = window.cssSlider || {}, jQuery ));
 
 $(document).ready(function(){
-  $(".slide-button").addClass("slide-buttonhover");
+  $(".slide-button").addClass("slidebutton-hover");
   cssSlider.handleEvent();
 });
 
 $(document).mousemove(function(e){
-  console.log(e.pageX);
-  if(util.pointIntersect("button", e.pageX, e.pageY)){
-    console.log("INTERSECT");
-    $(".slide-button").removeClass("slide-buttonhover");
+  if($("button").length){
+    if(util.intersects([".right", "button"]) | util.intersects([".left", "button"])){
+      if(util.intersectPointArea("button", {left:e.pageX, top:e.pageY}, {width: 50, height:50})){
+        $(".slide-button").removeClass("slidebutton-hover");
+      }
+      else{
+        if(!$(".slide-button").hasClass("slidebutton-hover")){
+            $(".slide-button").addClass("slidebutton-hover");
+        }
+      }
+    }
+    else{
+      if(!$(".slide-button").hasClass("slidebutton-hover")){
+          $(".slide-button").addClass("slidebutton-hover");
+      }
+    }
   }
   else{
-    console.log("NOTERSECT");
-    if(!$(".slide-button").hasClass("slide-buttonhover")){
-        $(".slide-button").addClass("slide-buttonhover");
+    if(!$(".slide-button").hasClass("slidebutton-hover")){
+        $(".slide-button").addClass("slidebutton-hover");
     }
   }
 })

@@ -1,18 +1,14 @@
 /*
 The MIT License (MIT)
-
 Copyright (c) 2016 Ethan Riley
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,6 +20,7 @@ SOFTWARE.
 
 "use strict"
 window.$ = window.jQuery = require("jquery");
+console.log("here");
 
 (function(util, $, undefined){
 	  util.lastFocus = document.hasFocus();
@@ -33,11 +30,11 @@ window.$ = window.jQuery = require("jquery");
 
 			util.lastFocus = !util.lastFocus;
 			Event();
-		};
+		}
 
 		util.xor = function(a,b){
 		  return (a ? 1 : 0)^(b ? 1 : 0);
-		};
+		}
 
 		util.xorRemoveClass = function(SelectorA, RemovableClassA, SelectorB, ClassB)
 		{
@@ -46,46 +43,40 @@ window.$ = window.jQuery = require("jquery");
 		  {
 		    $(SelectorA).removeClass(RemovableClassA);
 		  }
-		};
+		}
 
-		util.aabbcollision = function(rect1, rect2){
-			if(rect1.left < rect2.left + rect2.width &&
-			   rect2.left < rect1.left + rect1.width &&
-			   rect1.top < rect2.top + rect2.height &&
-			   rect2.top < rect1.top + rect1.height
-			){
-				return true;
+		util.aabbcollision = function(rects){
+      for(var i=0; i < rects.length/2; i++){
+  			if(!(rects[i].offset.left < rects[i+1].offset.left + rects[i+1].width &&
+  			   rects[i+1].offset.left < rects[i].offset.left + rects[i].width &&
+  			   rects[i].offset.top < rects[i+1].offset.top + rects[i+1].height &&
+  			   rects[i+1].offset.top < rects[i].offset.top + rects[i].height))
+				{
+					return false;
+				}
+      }
+			return true;
+		}
+
+		util.elementToRect = function(element){
+			return {offset: $(element).offset(), width:$(element).width(), height:$(element).height()};
+		}
+
+		util.intersectPointArea = function(element1, pos2, size2){
+			var rects = [util.elementToRect(element1)];
+			rects[0].width+=size2.width;
+			rects[0].height+=size2.height;
+			rects.push({offset:{top:pos2.top, left:pos2.left}, width:1, height:1});
+			return util.aabbcollision(rects);
+		}
+
+		util.intersects = function(elements){
+			var rects = [];
+			for(var i=0; i < elements.length ; i++){
+				rects.push(util.elementToRect(elements[i]));
 			}
-			return false;
+			return util.aabbcollision(rects);
 		}
-		
-		util.pointIntersect = function(element1, x, y){
-				var rect1 = $(element1).offset();
-				if(x <= rect1.left + $(element1).width() && x >= rect1.left &&
-					 y >= rect1.top && y <= rect1.top + $(element1).height()){
-						 return true;
-				}
-				var c =  rect1.left+$(element1).width();
-				console.log($(element1).width(), rect1.left);
-				var d =  rect1.top+$(element1).height();
-				console.log(d);
-			return false;
-		}
-		
-		util.intersects = function(element1, element2){
-			var rect1 = $(element1).offset();
-			var rect2 =  $(element2).offset();
-			if( rect1.left < rect2.left + $(element2).width() &&
-					rect2.left < rect1.left + $(element1).width() &&
-					rect1.top < rect2.top + $(element2).height() &&
-					rect2.top < rect1.top + $(element1).height()
-				){
-					return true;
-				}
-				return false;
-		}
-		
-
 
 		util.blacklistArray = function(string, blacklist){
 			for(var i=0; i < blacklist.length; i++){
