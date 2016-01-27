@@ -48,6 +48,17 @@ window.$ = window.jQuery = require("jquery");
 		  }
 		};
 
+		util.aabbcollision = function(rect1, rect2){
+			if(rect1.left < rect2.left + rect2.width &&
+			   rect2.left < rect1.left + rect1.width &&
+			   rect1.top < rect2.top + rect2.height &&
+			   rect2.top < rect1.top + rect1.height
+			){
+				return true;
+			}
+			return false;
+		}
+		
 		util.pointIntersect = function(element1, x, y){
 				var rect1 = $(element1).offset();
 				if(x <= rect1.left + $(element1).width() && x >= rect1.left &&
@@ -60,7 +71,7 @@ window.$ = window.jQuery = require("jquery");
 				console.log(d);
 			return false;
 		}
-
+		
 		util.intersects = function(element1, element2){
 			var rect1 = $(element1).offset();
 			var rect2 =  $(element2).offset();
@@ -73,6 +84,8 @@ window.$ = window.jQuery = require("jquery");
 				}
 				return false;
 		}
+		
+
 
 		util.blacklistArray = function(string, blacklist){
 			for(var i=0; i < blacklist.length; i++){
