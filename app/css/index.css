@@ -178,29 +178,15 @@ a{
 }
 
 /* ghost class to show slide-button in js */
-.showslide-button{
-}
-.slidebutton-fadeout{
-
-}
-.slidebutton-fadein{
-
-}
-.slide-end{
-
-}
-.start-slide{
-
-}
-.search{
-
-}
-.searchResponse{
-
-}
-.addSubjectButton{
-
-}
+.showslide-button{}
+.slidebutton-fadeout{}
+.slidebutton-fadein{}
+.slide-end{}
+.start-slide{}
+.search{}
+.searchResponse{}
+.addSubjectButton{}
+.add{}
 
 /* actual js classes used */
 .showslidebutton > .slide-arrow{

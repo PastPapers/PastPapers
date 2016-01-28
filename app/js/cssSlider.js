@@ -100,9 +100,8 @@ $(document).ready(function(){
 });
 
 $(document).mousemove(function(e){
-  if($("button").length){
-    if(util.intersects([".right", "button"]) | util.intersects([".left", "button"])){
-      if(util.intersectPointArea("button", {left:e.pageX, top:e.pageY}, {width: 50, height:50})){
+    if(util.intersectsOneOf([".right", ".left", "button", ".add", "a"])){
+      if(util.intersectPointArea(".add", {left:e.pageX, top:e.pageY}, {width:350, height:350})){
         $(".slide-button").removeClass("slidebutton-hover");
       }
       else{
@@ -117,11 +116,6 @@ $(document).mousemove(function(e){
       }
     }
   }
-  else{
-    if(!$(".slide-button").hasClass("slidebutton-hover")){
-        $(".slide-button").addClass("slidebutton-hover");
-    }
-  }
-})
+)
 
 setInterval(function(){util.documentFocus(cssSlider.checkSlideButtonAnim)}, 200);

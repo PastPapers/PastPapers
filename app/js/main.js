@@ -42,7 +42,7 @@ function searchOutputAsTable(responseId, inputId, json, searchVar, blacklist){
 						}
 					}
 				)
-			$(responseId).append("<button>add</button>")
+			$(responseId).append("<i class='material-icons add' id='"+searchval[i].id.toString()+"'>add_circle</i>");
 			$(responseId).append("</tr>");
 			}
 		}
@@ -52,9 +52,11 @@ setInterval(function(){
    searchOutputAsTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
                                     ["id", "subjectSafeName", "__LINK"]);
-}, 300);
+}, 7000);
 
-
+$(".add").click(function(){
+	console.log($(".add").attr("id"));
+})
 // tiles.
 function fixTileSquareHeight(){
   if($(".square-tile")[0]){

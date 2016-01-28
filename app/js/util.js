@@ -45,8 +45,9 @@ console.log("here");
 		  }
 		}
 
+
 		util.aabbcollision = function(rects){
-      for(var i=0; i < rects.length/2; i++){
+     	 for(var i=0; i < rects.length/2; i++){
   			if(!(rects[i].offset.left < rects[i+1].offset.left + rects[i+1].width &&
   			   rects[i+1].offset.left < rects[i].offset.left + rects[i].width &&
   			   rects[i].offset.top < rects[i+1].offset.top + rects[i+1].height &&
@@ -54,29 +55,65 @@ console.log("here");
 				{
 					return false;
 				}
-      }
+     		}
 			return true;
 		}
 
+		util.aabbcollisionOneOf = function(rects){
+			for(var i=0; i < rects.length; i++){
+				for(var v=0; v<rects.length; v++){
+					if(rects[i].offset.left < rects[v].offset.left + rects[v].width &&
+  			   			rects[v].offset.left < rects[i].offset.left + rects[i].width &&
+  		 				rects[i].offset.top < rects[v].offset.top + rects[v].height &&
+  			   			rects[v].offset.top < rects[i].offset.top + rects[i].height)
+					{
+						return true;
+					}
+						
+				}
+			}
+			return false;
+		}
+
 		util.elementToRect = function(element){
+			if(!$(element).length){
+				return undefined;
+			}
 			return {offset: $(element).offset(), width:$(element).width(), height:$(element).height()};
 		}
 
-		util.intersectPointArea = function(element1, pos2, size2){
-			var rects = [util.elementToRect(element1)];
-			rects[0].width+=size2.width;
-			rects[0].height+=size2.height;
-			rects.push({offset:{top:pos2.top, left:pos2.left}, width:1, height:1});
-			return util.aabbcollision(rects);
+		util.elementsToRect =  function(elements){
+			var rects = [];
+			for(var i=0; i < elements.length; i++){
+				var element = util.elementToRect(elements[i]);
+				if(typeof(element) !== "undefined"){
+					rects.push(element);
+				}
+			}
+			return rects;
 		}
 
 		util.intersects = function(elements){
-			var rects = [];
-			for(var i=0; i < elements.length ; i++){
-				rects.push(util.elementToRect(elements[i]));
-			}
+			var rects=util.elementsToRect(elements);
 			return util.aabbcollision(rects);
 		}
+
+		util.intersectsOneOf = function(elements){
+			var rects=util.elementsToRect(elements);
+			return util.aabbcollisionOneOf(rects);
+		}
+
+		util.intersectPointArea = function(element1, pos2, size2){
+			if($(element1).length){
+				var rects = [util.elementToRect(element1)];
+				rects[0].width+=size2.width;
+				rects[0].height+=size2.height;
+				rects.push({offset:{top:pos2.top, left:pos2.left}, width:1, height:1});
+				return util.aabbcollision(rects);
+			}
+			return false;
+		}
+
 
 		util.blacklistArray = function(string, blacklist){
 			for(var i=0; i < blacklist.length; i++){
