@@ -164,11 +164,11 @@ a{
 .slide.onscreen{
   left:0;
 }
-.right{
+.slide-right{
   right:0;
   float:right;
 }
-.left{
+.slide-left{
   left:0;
   float:left;
 }
@@ -189,6 +189,12 @@ a{
 .add{}
 
 /* actual js classes used */
+.checked{
+	content:"check_box";
+}
+.unchecked{
+	content:"check_box_outline_blank";
+}
 .showslidebutton > .slide-arrow{
   opacity: 1;
 }

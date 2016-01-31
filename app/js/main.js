@@ -52,12 +52,10 @@ setInterval(function(){
    searchOutputAsTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
                                     ["id", "subjectSafeName", "__LINK"]);
-	$(".add").click(function(){
+	$(".add").click( function(){
 		console.log($(".add").attr("id"));
-		console.log("clicky");
 	})
-
-}, 7000);
+}, 300);
 
 // tiles.
 function fixTileSquareHeight(){

@@ -26,6 +26,9 @@ SOFTWARE.
 window.$ = window.jQuery = require("jquery");
 
 (function (cssSlider, $, undefined){
+  cssSlider.clickable = ["button", "a"];
+  cssSlider.sliderButtons = [".slide-right", ".slide-left"];
+
   cssSlider.checkShowSlideButton = function(){
     if($(".onscreen").hasClass("showslide-button")){
       $(".slide-button").addClass("showslidebutton");
@@ -76,14 +79,14 @@ window.$ = window.jQuery = require("jquery");
   cssSlider.handleEvent = function(){
       cssSlider.checkShowSlideButton();
       cssSlider.checkSlideButtonAnim();
-      $(".slide-button.right").click(function(){
+      $(".slide-button.slide-right").click(function(){
         if(!$(".slide.onscreen").hasClass("slide-end")){
           cssSlider.nextSlide();
           cssSlider.checkShowSlideButton();
           cssSlider.checkSlideButtonAnim();
         }
       });
-      $(".slide-button.left").click(function(){
+      $(".slide-button.slide-left").click(function(){
         if(!$(".slide.onscreen").hasClass("start-slide")){
           cssSlider.prevSlide();
           cssSlider.checkShowSlideButton();
@@ -100,8 +103,9 @@ $(document).ready(function(){
 });
 
 $(document).mousemove(function(e){
-    if(util.intersectsOneOf([".right", ".left", "button", ".add", "a"])){
-      if(util.intersectPointArea(".add", {left:e.pageX, top:e.pageY}, {width:350, height:350})){
+    var clickableSlider=cssSlider.clickable.concat(cssSlider.sliderButtons);
+    if(util.intersectsOneOf(clickableSlider)){
+      if(util.intersectOneOfPointArea(cssSlider.clickable, {left:e.pageX, top:e.pageY}, {width:350, height:200})){
         $(".slide-button").removeClass("slidebutton-hover");
       }
       else{
