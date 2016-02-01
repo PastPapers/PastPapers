@@ -30,32 +30,11 @@ $.get("http://ppapi.lexteam.xyz/v1/papers", function(data){
 			window.masterjson = data;
 });
 
-function searchOutputAsTable(responseId, inputId, json, searchVar, blacklist){
-	$(responseId).empty();
-	var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
-	if(searchval){
-		for(var i = 0; i < searchval.length; i++){
-			$(responseId).append("<tr>");
-			$.each(searchval[i], function(key, val){
-						if(util.blacklistArray(key, blacklist)){
-							$(responseId).append("<th>"+val+"</th>");
-						}
-					}
-				)
-			$(responseId).append("<i class='material-icons add' id='"+searchval[i].id.toString()+"'>add_circle</i>");
-			$(responseId).append("</tr>");
-			}
-		}
-}
-
 setInterval(function(){
-   searchOutputAsTable(".searchResponse", ".search",
+   jsonSearch.searchOutputAsCheckTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
                                     ["id", "subjectSafeName", "__LINK"]);
-	$(".add").click( function(){
-		console.log($(".add").attr("id"));
-	})
-}, 300);
+}, 7000);
 
 // tiles.
 function fixTileSquareHeight(){
@@ -65,8 +44,24 @@ function fixTileSquareHeight(){
   }
 }
 
+
 $(document).ready(function(){
+	cssSlider.clickable.push(".unchecked", ".checked");
 	fixTileSquareHeight();
+
+	$(document).on("click", ".unchecked", function(e){
+		$(this).removeClass("unchecked");
+		$(this).addClass("checked");
+		console.log("HI");
+	});
+
+
+	$(document).on("click", ".checked", function(e){
+			$(this).removeClass("checked");
+			$(this).addClass("unchecked");
+			console.log("BYE");
+	});
+
 })
 
 const remote = require("electron").remote;
