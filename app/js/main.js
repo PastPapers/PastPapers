@@ -50,16 +50,16 @@ $(document).ready(function(){
 	fixTileSquareHeight();
 
 	$(document).on("click", ".unchecked", function(e){
-		$(this).removeClass("unchecked");
-		$(this).addClass("checked");
-		console.log("HI");
+		$(this).replaceWith("<i class='material-icons checked' id=''"+$(this).attr("id")+"'>check_box</i>");
+		var html = $(this).parent();
+		$(this).parent().parent().append(html);
 	});
 
 
 	$(document).on("click", ".checked", function(e){
-			$(this).removeClass("checked");
-			$(this).addClass("unchecked");
-			console.log("BYE");
+		$(this).replaceWith("<i class='material-icons unchecked' id=''"+$(this).attr("id")+"'>check_box_outline_blank</i>");
+		var html = $(this).parent();
+		$(".searchResponse").append(html);
 	});
 
 })

@@ -70,17 +70,17 @@ window.$ = window.jQuery = require("jquery");
 		var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
 		if(searchval){
 			for(var i = 0; i < searchval.length; i++){
-				$(responseId).append("<tr>");
-				$.each(searchval[i], function(key, val){
+				$(responseId).append("<tr class='checkitem'>");
+				$.map(searchval[i], function(val, key){
 							if(util.blacklistArray(key, blacklist)){
 								$(responseId).append("<th>"+val+"</th>");
 							}
-						}
-					)
-				$(responseId).append("<i class='material-icons unchecked' id='"+searchval[i].id.toString()+"'>check_box_outline_blank</i>");
+						});
+				$(responseId).append("<i class='material-icons unchecked' id='"+
+														searchval[i].id.toString()+"'>check_box_outline_blank</i>");
 				$(responseId).append("</tr>");
 				}
-			}
+		}
 }
 
 
