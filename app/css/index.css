@@ -57,6 +57,10 @@ button:focus{
 *::selection{
   background-color: #fefefe;
 }
+input::selection{
+  background-color: #cccccc;
+  cursor:default;
+}
 button::selection{
   background-color: #ffffff;
 }
@@ -70,6 +74,16 @@ a{
   flex-wrap: wrap;
   padding:0.25em;
   align-items: center;
+}
+.inline{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin:auto;
+}
+.inline < p{
+  margin:0.25em;
 }
 .tile-container{
   height:97.5vh;
@@ -177,24 +191,24 @@ a{
   text-align: center;
 }
 
-/* ghost class to show slide-button in js */
+/* ghost classes */
 .showslide-button{}
 .slidebutton-fadeout{}
 .slidebutton-fadein{}
 .slide-end{}
 .start-slide{}
-.search{}
 .searchResponse{}
 .addSubjectButton{}
 .add{}
+.checked{}
+.unchecked{}
+
+/* classes with elements used in js like ghost classes */
+.search{
+  flex-basis: 75%;
+}
 
 /* actual js classes used */
-.checked{
-	content:"check_box";
-}
-.unchecked{
-	content:"check_box_outline_blank";
-}
 .showslidebutton > .slide-arrow{
   opacity: 1;
 }

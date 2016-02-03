@@ -64,22 +64,24 @@ window.$ = window.jQuery = require("jquery");
 		}
 	};
 
-
+	//rather specific.
 	jsonSearch.searchOutputAsCheckTable = function(responseId, inputId, json, searchVar, blacklist){
 		$(responseId).empty();
 		var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
 		if(searchval){
 			for(var i = 0; i < searchval.length; i++){
-				$(responseId).append("<tr class='checkitem'>");
-				$.map(searchval[i], function(val, key){
-							if(util.blacklistArray(key, blacklist)){
-								$(responseId).append("<th>"+val+"</th>");
-							}
-						});
-				$(responseId).append("<i class='material-icons unchecked' id='"+
-														searchval[i].id.toString()+"'>check_box_outline_blank</i>");
-				$(responseId).append("</tr>");
-				}
+				var html = "<tr class='checkitem'>";
+				if($("#checkitem"+searchval[i].id).length === 0){
+					$.when($.map(searchval[i], function(val, key){
+								if(util.blacklistArray(key, blacklist)){
+									html = html+"<th>"+val+"</th>";
+								}
+							})).promise().done(function(){
+								html += "<th><i class='material-icons unchecked' id='checkitem"+searchval[i].id+"'>check_box_outline_blank</i></th>";
+								$(responseId).append(html);
+							});
+					}
+			}
 		}
 }
 

@@ -45,7 +45,12 @@ console.log("here");
 		  }
 		}
 
+		util.replaceClass = function(selector, oldclass, newclass){
+			$(selector).removeClass(oldclass);
+			$(selector).addClass(newclass);
+		}
 
+		//@param rects object including offset from jquery element(offset), width and height.
 		util.aabbcollision = function(rects){
      	 for(var i=0; i < rects.length/2; i++){
   			if(!(rects[i].offset.left < rects[i+1].offset.left + rects[i+1].width &&
@@ -59,6 +64,8 @@ console.log("here");
 			return true;
 		}
 
+		//@param rects object including offset from jquery element(offset), width and height.
+		//only needs one collision to return true.
 		util.aabbcollisionOneOf = function(rects){
 			for(var i=0; i < rects.length; i++){
 				for(var v=i+1; v<rects.length; v++){

@@ -34,7 +34,7 @@ setInterval(function(){
    jsonSearch.searchOutputAsCheckTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
                                     ["id", "subjectSafeName", "__LINK"]);
-}, 7000);
+}, 300);
 
 // tiles.
 function fixTileSquareHeight(){
@@ -50,16 +50,17 @@ $(document).ready(function(){
 	fixTileSquareHeight();
 
 	$(document).on("click", ".unchecked", function(e){
-		$(this).replaceWith("<i class='material-icons checked' id=''"+$(this).attr("id")+"'>check_box</i>");
-		var html = $(this).parent();
-		$(this).parent().parent().append(html);
+		util.replaceClass(this, "unchecked", "checked");
+		$(this).html("check_box");
+		$(".searchResponse").after("<tr class='checkitem'>"+$(this).parents('.checkitem').html()+"</tr>");
+		$(this).parents('.checkitem').replaceWith("");
 	});
 
-
 	$(document).on("click", ".checked", function(e){
-		$(this).replaceWith("<i class='material-icons unchecked' id=''"+$(this).attr("id")+"'>check_box_outline_blank</i>");
-		var html = $(this).parent();
-		$(".searchResponse").append(html);
+		util.replaceClass(this, "checked", "unchecked");
+		$(this).html("check_box_outline_blank");
+		$(".searchResponse").append("<tr class='checkitem'>"+$(this).parents('.checkitem').html()+"</tr>");
+		$(this).parents('.checkitem').replaceWith("");
 	});
 
 })
