@@ -68,7 +68,7 @@ window.$ = window.jQuery = require("jquery");
 	// @param jsonVar use if want to accsess variables in JSON(toplevel) array.
 	// @return false if no match
 	jsonSearch.arraySearchJqueryRequest = function(searchSelector, request, jsonVar){
-		return jsonSearch.arraySearchRequest(searchSelector, request, jsonVar)
+		return jsonSearch.arraySearchRequest($(searchSelector).val(), request, jsonVar)
 	};
 	
 	//rather specific.
