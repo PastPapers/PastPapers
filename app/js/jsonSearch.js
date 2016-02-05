@@ -24,7 +24,7 @@ window.$ = window.jQuery = require("jquery");
 (function(jsonSearch, $, undefined){
 
 	jsonSearch.searchRequest =  function(searchString, request){
-			var searchRgx = new RegExp($(searchString).val(), "gi");
+			var searchRgx = new RegExp(searchString, "gi");
 			return searchRgx.test(request);
 	};
 
@@ -70,5 +70,6 @@ window.$ = window.jQuery = require("jquery");
 	jsonSearch.arraySearchJqueryRequest = function(searchInputId, request, jsonVar){
 		return jsonSearch.searchRequest($(searchInputId).val(), request, jsonVar);
 	};
+	
 
 }(window.jsonSearch = window.jsonSearch || {}, jQuery));
