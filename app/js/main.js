@@ -31,7 +31,7 @@ $.get("http://ppapi.lexteam.xyz/v1/papers", function(data){
 });
 
 setInterval(function(){
-   jsonSearch.searchOutputAsCheckTable(".searchResponse", ".search",
+   cssSearch.searchOutputAsCheckTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
                                     ["id", "subjectSafeName", "__LINK"]);
 }, 300);

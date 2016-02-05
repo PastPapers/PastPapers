@@ -23,36 +23,36 @@ window.$ = window.jQuery = require("jquery");
 
 (function(jsonSearch, $, undefined){
 
-	jsonSearch.searchRequest =  function(SearchInputId, Request){
-			var searchRgx = new RegExp($(SearchInputId).val(), "gi");
-			return searchRgx.test(Request);
+	jsonSearch.searchRequest =  function(searchString, request){
+			var searchRgx = new RegExp($(searchString).val(), "gi");
+			return searchRgx.test(request);
 	};
 
-	// @param JsonVar can be null, can be string, can be array of vars(string).
-	// @param JsonVar use if want to accsess variables in JSON(toplevel) array.
+	// @param jsonVar can be null, can be string, can be array of vars(string).
+	// @param jsonVar use if want to accsess variables in JSON(toplevel) array.
 	// @return false if no match
-	jsonSearch.arraySearchRequest = function(SearchInputId, Request, JsonVar){
+	jsonSearch.arraySearchRequest = function(searchString, request, jsonVar){
 		var matches = Array();
-		for(var i =0; i < Request.length; i++){
-			if(typeof(JsonVar) !== 'undefined'){
-				if(JsonVar.constructor !== Array){
-					if(jsonSearch.searchRequest(SearchInputId, Request[i][JsonVar])){
-							matches.push(Request[i]);
+		for(var i =0; i < request.length; i++){
+			if(typeof(jsonVar) !== 'undefined'){
+				if(jsonVar.constructor !== Array){
+					if(jsonSearch.searchRequest(searchString, request[i][jsonVar])){
+							matches.push(request[i]);
 					}
 				}
 			else{
-					for(var v=0; v < JsonVar.length; v++){
-						if(jsonSearch.searchRequest(SearchInputId, Request[i][JsonVar[v]])){
-							if(matches.indexOf(Request[i]) === -1){
-								matches.push(Request[i]);
+					for(var v=0; v < jsonVar.length; v++){
+						if(jsonSearch.searchRequest(searchString, request[i][jsonVar[v]])){
+							if(matches.indexOf(request[i]) === -1){
+								matches.push(request[i]);
 							}
 						}
 					}
 				}
 			}
 			else{
-				if(jsonSearch.searchRequest(SearchInputId, Request[i])){
-							matches.push(Request[i]);
+				if(jsonSearch.searchRequest(searchString, request[i])){
+							matches.push(request[i]);
 				}
 			}
 		}
@@ -64,26 +64,11 @@ window.$ = window.jQuery = require("jquery");
 		}
 	};
 
-	//rather specific.
-	jsonSearch.searchOutputAsCheckTable = function(responseId, inputId, json, searchVar, blacklist){
-		$(responseId).empty();
-		var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
-		if(searchval){
-			for(var i = 0; i < searchval.length; i++){
-				var html = "<tr class='checkitem'>";
-				if($("#checkitem"+searchval[i].id).length === 0){
-					$.when($.map(searchval[i], function(val, key){
-								if(util.blacklistArray(key, blacklist)){
-									html = html+"<th>"+val+"</th>";
-								}
-							})).promise().done(function(){
-								html += "<th><i class='material-icons unchecked' id='checkitem"+searchval[i].id+"'>check_box_outline_blank</i></th>";
-								$(responseId).append(html);
-							});
-					}
-			}
-		}
-}
-
+	// @param jsonVar can be null, can be string, can be array of vars(string).
+	// @param jsonVar use if want to accsess variables in JSON(toplevel) array.
+	// @return false if no match
+	jsonSearch.arraySearchJqueryRequest = function(searchInputId, request, jsonVar){
+		return jsonSearch.searchRequest($(searchInputId).val(), request, jsonVar);
+	};
 
 }(window.jsonSearch = window.jsonSearch || {}, jQuery));
