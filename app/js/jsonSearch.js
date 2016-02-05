@@ -23,7 +23,7 @@ window.$ = window.jQuery = require("jquery");
 
 (function(jsonSearch, $, undefined){
 
-	jsonSearch.searcRrequest =  function(searchString, request){
+	jsonSearch.searchRequest =  function(searchString, request){
 			var searchRgx = new RegExp(searchString, "gi");
 			return searchRgx.test(request);
 	};
@@ -74,7 +74,7 @@ window.$ = window.jQuery = require("jquery");
 	//rather specific.
 	jsonSearch.searchOutputAsCheckTable = function(responseId, inputId, json, searchVar, blacklist){
 		$(responseId).empty();
-		var searchval = jsonSearch.arraySearchrequest(inputId, json, searchVar);
+		var searchval = jsonSearch.arraySearchJqueryRequest(inputId, json, searchVar);
 		if(searchval){
 			for(var i = 0; i < searchval.length; i++){
 				var html = "<tr class='checkitem'>";
