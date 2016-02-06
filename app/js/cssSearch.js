@@ -38,7 +38,8 @@ window.$ = window.jQuery = require("jquery");
   									html = html+"<th>"+val+"</th>";
   								}
   							})).promise().done(function(){
-  								html += "<th><i class='material-icons unchecked' id='checkitem"+searchval[i].id+"'>check_box_outline_blank</i></th>";
+  								html += "<th><i class='material-icons unchecked' id='checkitem" + searchval[i].id +
+  								      "'>check_box_outline_blank</i></th>";
   								$(responseId).append(html);
   							});
   					}
@@ -47,11 +48,23 @@ window.$ = window.jQuery = require("jquery");
   }
 
   //@return Array of __LINK s from checktable.
-/*  cssSearch.submitCheckTableData = function(responseId){
-    $(".checked").each(function(key, val)
-
-    })
+  cssSearch.submitCheckTableData = function(responseId){
+    var papers = []; 
+    for(var i=0; i < $(".checked").length; i++){
+      var id = $(".checked")[i].attr("id");
+      $.get($(".checked")[i].attr("__LINK"), function(data){
+          papers.push(JSON.parse(data));
+          $.each(papers[i].downloads, function(key, val){
+              $.get(val, function(pdf){
+                  fs.writeFile(papers[i].subject.id+'_'+key, pdf, function(err){
+                    if(err){console.log(err)};
+                  }); 
+              })
+          });
+      });
+    }
+    return papers;
   }
-*/
+
 
 }(window.cssSearch = window.cssSearch || {}, jQuery));
