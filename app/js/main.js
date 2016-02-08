@@ -33,7 +33,7 @@ $.get("http://ppapi.lexteam.xyz/v1/papers", function(data){
 setInterval(function(){
    cssSearch.searchOutputAsCheckTable(".searchResponse", ".search",
                                     window.masterjson["data"], "subjectName",
-                                    ["id", "subjectSafeName", "__LINK"]);
+                                    ["id", "safeName", "__LINK"]);
 }, 300);
 
 // tiles.

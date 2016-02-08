@@ -26,30 +26,31 @@ SOFTWARE.
 window.$ = window.jQuery = require("jquery");
 (function(cssSearch, $, undefined){
 
+
+
   cssSearch.searchOutputAsCheckTable = function(responseId, inputId, json, searchVar, blacklist){
   		$(responseId).empty();
-  		var searchval = jsonSearch.arraySearchRequest(inputId, json, searchVar);
-  		if(searchval){
-  			for(var i = 0; i < searchval.length; i++){
-  				var html = "<tr class='checkitem'>";
-  				if($("#checkitem"+searchval[i].id).length === 0){
-  					$.when($.map(searchval[i], function(val, key){
-  								if(util.blacklistArray(key, blacklist)){
-  									html = html+"<th>"+val+"</th>";
-  								}
-  							})).promise().done(function(){
-  								html += "<th><i class='material-icons unchecked' id='checkitem" + searchval[i].id +
-  								      "'>check_box_outline_blank</i></th>";
-  								$(responseId).append(html);
-  							});
-  					}
-  			}
-  		}
-  }
+  			for(var i = 0; i < json.length; i++){
+          if(search.objectValues($(inputId).val(), json[i], searchVar)){
+    				var html = "<tr class='checkitem'>";
+    				if($("#checkitem"+json[i].id).length === 0){
+                util.iterateObject(json[i], function(key, val){
+                  if(util.blacklistArray(key, blacklist)){
+                      html += "<th>"+val+"</th>";
+                  }
+                });
+    						html += "<th><i class='material-icons unchecked' id='checkitem" + json[i].id +
+    								      "'>check_box_outline_blank</i></th>";
+    						$(responseId).append(html);
+    				}
+    		}
+    }
+}
+
 
   //@return Array of __LINK s from checktable.
   cssSearch.submitCheckTableData = function(responseId){
-    var papers = []; 
+    var papers = [];
     for(var i=0; i < $(".checked").length; i++){
       var id = $(".checked")[i].attr("id");
       $.get($(".checked")[i].attr("__LINK"), function(data){
@@ -58,7 +59,7 @@ window.$ = window.jQuery = require("jquery");
               $.get(val, function(pdf){
                   fs.writeFile(papers[i].subject.id+'_'+key, pdf, function(err){
                     if(err){console.log(err)};
-                  }); 
+                  });
               })
           });
       });
