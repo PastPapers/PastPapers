@@ -79,12 +79,11 @@ a{
   display: inline-flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   margin:auto;
+  padding:0.25em;
 }
-.inline < p{
-  margin:0.25em;
-}
+
 .tile-container{
   height:97.5vh;
   width:97.5vw;

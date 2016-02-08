@@ -50,6 +50,40 @@ console.log("here");
 			$(selector).addClass(newclass);
 		}
 
+		util.objectValuesToArrayRecurse = function(obj){
+			var array = Object.keys(obj).map(function(key){return obj[key]});
+			for(var i=0; i < array.length; i++){
+				if(array[i].constructor === Object){
+					array[i] = util.objectValuesToArrayRecurse(array[i]);
+				}
+			}
+			return array;
+		}
+
+		util.objectKeysToArrayRecurse = function(obj){
+			var array = Object.keys(obj);
+			for(var i=0; i < array.length; i++){
+				if(array[i].constructor === Object){
+					array[i] = util.objectKeysToArrayRecurse(array[i]);
+				}
+			}
+			return array;
+		}
+
+
+		util.iterateObject = function(object, iterfunc){
+			var array = Object.keys(object);
+			var values = Object.keys(object).map(function(key){return object[key]});
+			for(var i=0; i<array.length; i++){
+				if(values[i].constructor !== Object){
+					iterfunc(array[i], values[i]);
+				}
+				else{
+					util.iterateObject(values[i], iterfunc);
+				}
+			}
+		}
+
 		//@param rects object including offset from jquery element(offset), width and height.
 		util.aabbcollision = function(rects){
      	 for(var i=0; i < rects.length/2; i++){
@@ -128,7 +162,6 @@ console.log("here");
 			}
 			return false;
 		}
-
 
 		util.blacklistArray = function(string, blacklist){
 			for(var i=0; i < blacklist.length; i++){
