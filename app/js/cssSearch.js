@@ -40,7 +40,7 @@ window.$ = window.jQuery = require("jquery");
                       html += "<th>"+val+"</th>";
                   }
                 });
-    						html += "<th><i class='material-icons unchecked' __LINK='"+json[i].__LINK+"' id='checkitem" + json[i].id +
+                html += "<th><i class='material-icons unchecked' __LINK='"+json[i].__LINK+"' id='checkitem" + json[i].id +
     								      "'>check_box_outline_blank</i></th>";
     						$(responseId).append(html);
     				}
