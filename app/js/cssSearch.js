@@ -58,8 +58,19 @@ window.$ = window.jQuery = require("jquery");
           papers[i]=data.data;
           $.each(papers[i].downloads, function(key, val){
               $.get(val, function(pdf){
-                  fs.writeFile(papers[i].subject.id+'_'+key+".pdf", pdf, function(err){
-                    if(err){console.log(err)};
+                  fs.stat("pdf", function(err, stat){
+                    if(err !== null || stat === "undefined"){
+                      try{
+                        fs.mkdir("pdf")
+                      }catch(e){
+                        if(e !== "EEXISTS"){
+                          console.log(e);
+                        }
+                      }
+                    }
+                    fs.writeFile("pdf/"+papers[i].subject.id+'_'+key+".pdf", pdf, function(err){
+                      if(err){console.log(err)};
+                    });
                   });
               })
           });
