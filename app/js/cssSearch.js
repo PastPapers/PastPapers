@@ -24,8 +24,10 @@ SOFTWARE.
 
 "use strict"
 const fs = require("fs");
+require("node-ensure");
+const pdf = require('pdfjs-dist');
 window.$ = window.jQuery = require("jquery");
-(function(cssSearch, $, undefined){
+(function(cssSearch, $, PDFJS, undefined){
 
 
 
@@ -46,8 +48,21 @@ window.$ = window.jQuery = require("jquery");
     				}
     		}
     }
-}
+  }
 
+  cssSearch.checkpdf = function(file){
+    pdf.getDocument(file).then(function(doc){
+      doc.getPage(1).then(function(page){
+        page.getTextContent().then(function(data){
+          console.log(data);
+        })
+        return true;
+      });
+    },function(err){
+      console.log(err);
+      return false;
+    });
+  }
 
   //@return Array of __LINK s from checktable.
   cssSearch.submitCheckTableData = function(){
@@ -61,15 +76,18 @@ window.$ = window.jQuery = require("jquery");
                   fs.stat("pdf", function(err, stat){
                     if(err !== null || stat === "undefined"){
                       try{
-                        fs.mkdir("pdf")
+                        fs.mkdir("pdf");
                       }catch(e){
-                        if(e !== "EEXISTS"){
+                        if(e !== "EEXIST"){
                           console.log(e);
                         }
                       }
                     }
                     fs.writeFile("pdf/"+papers[i].subject.id+'_'+key+".pdf", pdf, function(err){
-                      if(err){console.log(err)};
+                      if(err){console.log(err)}
+                      if(!cssSearch.checkpdf("../pdf/"+papers[i].subject.id+'_'+key+".pdf")){
+                        console.log(":(");
+                      }
                     });
                   });
               })
@@ -79,5 +97,4 @@ window.$ = window.jQuery = require("jquery");
     return papers;
   }
 
-
-}(window.cssSearch = window.cssSearch || {}, jQuery));
+}(window.cssSearch = window.cssSearch || {}, jQuery, pdf));
