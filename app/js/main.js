@@ -23,7 +23,6 @@ SOFTWARE.
 */
 
 "use strict"
-window.$ = window.jQuery = require("jquery");
 
 // Search Request.
 $.get("http://ppapi.lexteam.xyz/v1/papers", function(data){

@@ -24,8 +24,10 @@ SOFTWARE.
 
 "use strict"
 const fs = require("fs");
+require("node-ensure");
+const pdf = require('pdfjs-dist');
 window.$ = window.jQuery = require("jquery");
-(function(cssSearch, $, undefined){
+(function(cssSearch, $, PDFJS, undefined){
 
 
 
@@ -80,4 +82,4 @@ window.$ = window.jQuery = require("jquery");
   }
 
 
-}(window.cssSearch = window.cssSearch || {}, jQuery));
+}(window.cssSearch = window.cssSearch || {}, jQuery, pdf));

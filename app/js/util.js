@@ -20,8 +20,6 @@ SOFTWARE.
 
 "use strict"
 window.$ = window.jQuery = require("jquery");
-console.log("here");
-
 (function(util, $, undefined){
 	  util.lastFocus = document.hasFocus();
 
