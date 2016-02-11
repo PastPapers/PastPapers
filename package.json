@@ -24,7 +24,11 @@
     "chart.js": "^1.0.2",
     "electron-prebuilt": "^0.36.2",
     "jquery": "^2.1.4",
+<<<<<<< HEAD
     "mdi": "^1.4.57",
     "node-ensure": "0.0.0"
+=======
+    "mdi": "^1.4.57"
+>>>>>>> ac723a07606b3b9565eaf1096c49369adc7d9ae7
   }
 }
