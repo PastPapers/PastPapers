@@ -24,12 +24,8 @@ SOFTWARE.
 
 "use strict"
 const fs = require("fs");
-require("node-ensure");
-const pdf = require('pdfjs-dist');
 window.$ = window.jQuery = require("jquery");
-(function(cssSearch, $, PDFJS, undefined){
-
-
+(function(cssSearch, $, undefined){
 
   cssSearch.searchOutputAsCheckTable = function(responseId, inputId, json, searchVar, blacklist){
   		$(responseId).empty();
@@ -48,52 +44,6 @@ window.$ = window.jQuery = require("jquery");
     				}
     		}
     }
-  }
-  cssSearch.testPDF=function(file){
-    pdf.getDocument(file).then(function(doc){
-      for(var i=0; i < doc.numPages; i++){
-        doc.getPage(i).then(function(page){
-            console.log(page);
-            page.getTextContent().then(function(text){
-              console.log(text);
-           });
-        });
-      }
-    });
-  }
-
-  cssSearch.getPdfContent = function(file){
-    var Content = [];
-    pdf.getDocument(file).then(function(doc){
-      for(let i = 0 ; i <= doc.numPages; i++){
-        doc.getPage(i).then(function(page){
-          page.getTextContent().then(function(text){
-                for(var v=0; v < text.items.length; v++){
-                  if(typeof(text.items[v].str) !== "undefined"){
-                    if(typeof(Content[i]) !== "undefined"){
-                      Content[i] += " " + text.items[v].str;
-                    }
-                    else{
-                      Content[i] = text.items[v].str;
-                    }
-                  }
-                }
-            });
-        });
-      }
-    },function(err){
-      console.log("error");
-      console.log(err);
-      return false;
-    });
-    return Content;
-  }
-
-  cssSearch.save = function(txt, filename){
-    fs.writeFile("pdf/"+filename, txt, function(err){
-      if(err){console.log(err);}
-      console.log("done");
-    });
   }
 
   //@return Array of __LINK s from checktable.
@@ -117,7 +67,7 @@ window.$ = window.jQuery = require("jquery");
                     }
                     fs.writeFile("pdf/"+papers[i].subject.id+'_'+key+".pdf", pdf, function(err){
                       if(err){console.log(err)}
-                      if(!cssSearch.checkpdf("../pdf/"+papers[i].subject.id+'_'+key+".pdf")){
+                      if(!pdfHandler.checkpdf("../pdf/"+papers[i].subject.id+'_'+key+".pdf")){
 
                       }
                     });
@@ -129,4 +79,4 @@ window.$ = window.jQuery = require("jquery");
     return papers;
   }
 
-}(window.cssSearch = window.cssSearch || {}, jQuery, pdf));
+}(window.cssSearch = window.cssSearch || {}, jQuery));
