@@ -8,4 +8,7 @@ The program has a backend which does the processing of questions, using regex, a
 
 As most past papers are submitted as .pdf files we will be using [pdf.js](https://mozilla.github.io/pdf.js/) to read them. Papers are accessed via a http request and updated yearly(?). The urls for these files will be stored in a file somewhere for easy addition of new papers.
 
-REMINDER check pdf.js stuffs, seems like only rendering capabilities / no local file loadings. 
+Currently there are some issues, as the past papers are encypted for AQA, we will have to ask them for acsess, before this point we will use
+sample pdfs which have been created by myself.
+
+ 

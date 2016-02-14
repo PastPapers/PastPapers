@@ -49,18 +49,50 @@ window.$ = window.jQuery = require("jquery");
     		}
     }
   }
-
-  cssSearch.checkpdf = function(file){
+  cssSearch.testPDF=function(file){
     pdf.getDocument(file).then(function(doc){
-      doc.getPage(1).then(function(page){
-        page.getTextContent().then(function(data){
-          console.log(data);
-        })
-        return true;
-      });
+      for(var i=0; i < doc.numPages; i++){
+        doc.getPage(i).then(function(page){
+            console.log(page);
+            page.getTextContent().then(function(text){
+              console.log(text);
+           });
+        });
+      }
+    });
+  }
+
+  cssSearch.getPdfContent = function(file){
+    var Content = [];
+    pdf.getDocument(file).then(function(doc){
+      for(let i = 0 ; i <= doc.numPages; i++){
+        doc.getPage(i).then(function(page){
+          page.getTextContent().then(function(text){
+                for(var v=0; v < text.items.length; v++){
+                  if(typeof(text.items[v].str) !== "undefined"){
+                    if(typeof(Content[i]) !== "undefined"){
+                      Content[i] += " " + text.items[v].str;
+                    }
+                    else{
+                      Content[i] = text.items[v].str;
+                    }
+                  }
+                }
+            });
+        });
+      }
     },function(err){
+      console.log("error");
       console.log(err);
       return false;
+    });
+    return Content;
+  }
+
+  cssSearch.save = function(txt, filename){
+    fs.writeFile("pdf/"+filename, txt, function(err){
+      if(err){console.log(err);}
+      console.log("done");
     });
   }
 
@@ -86,7 +118,7 @@ window.$ = window.jQuery = require("jquery");
                     fs.writeFile("pdf/"+papers[i].subject.id+'_'+key+".pdf", pdf, function(err){
                       if(err){console.log(err)}
                       if(!cssSearch.checkpdf("../pdf/"+papers[i].subject.id+'_'+key+".pdf")){
-                        console.log(":(");
+
                       }
                     });
                   });
