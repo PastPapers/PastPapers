@@ -36,7 +36,7 @@ where (#id)(.+[^#e]+)(#ce)
 
 identifiesrs(#id):
   subquestion=(\d.*(\(.+\))+)
-  subqueston+qustion=(\d.*((\(.+\).)*))
+  subqueston+question=(\d.*((\(.+\).)*))
 
 ends(#e):
   AQA specific Ref. used for markshemes questions = (\d(\s*\+\s*\d)*\s*\/\s*(\d.\d.\d\w(\/\w)*))
@@ -48,17 +48,26 @@ https://regex101.com/r/eG5qW1/2
 
 gets the middle between two subquestions:
 https://regex101.com/r/eG5qW1/12
-(\d\s*(\(\w+\)\s*)+)*(([\w\W]*?))(?:(\d\s*(\(\w+\)\s*)+)|$)
+(\d\s*(\(\w+\)\s*)+)*([\w\W]*?)(?:(\d\s*(\(\w+\)\s*)+)|$)
 
 exculding metric unit convertion.
 (\d\s*(\([^g]{0,4}\)\s*)+)*([\w\W]*?)(?:(\d\s*(\([^g]{0,4}\)\s*)+)|$)
 https://regex101.com/r/eG5qW1/17#javascript
+
+this can be more easly done by matching the number of marks shown, although there is grabage text before the question(the dotted lines to place a question). this will hopefully work with the papers that have unreadable question notations e.g. RE
+(?:\[\d\s*\w+\]|^)*([\w\W]*?)(?:\[\d\s*\w+\]|$)
+
+to remove dotted lines:
+(?:\[\d\s*\w+\]|^)*(?:[\.\n]+)*([\w\W]*?)(?:\[\d\s*\w+\])
+
+but it is better to do this in a another regex with 
+[^.]+ as the regex above only gets the dots before the question.
 
 works for aqa markschemes for sci.
 
 Edexcel Questions(maths):
   (\(.+\d\smarks\))*([\w\W]*?)(?:(\(.+\d\smarks\))|$)
 Edexcel Subquestions:
-  (\(\w\))(([\w\W]*?))(?:(\(\d\)|$))
+  (\(\w\))([\w\W]*?)(?:(\(\d\)|$))
 connected:
   (\(.+\d\smarks\))*([\w\W]*?)(?:(\(.+\d\smarks\))|$)
