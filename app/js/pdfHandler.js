@@ -1,8 +1,8 @@
 "use strict"
 
-const fs = require("fs");
+var fs = require("fs");
 require("node-ensure");
-const pdf = require('pdfjs-dist');
+var pdf = require('pdfjs-dist');
 window.$ = window.jQuery = require("jquery");
 
 (function(pdfHandler, $, PDFJS, undefined){

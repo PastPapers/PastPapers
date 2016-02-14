@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 "use strict"
-const fs = require("fs");
+var fs = require("fs");
 window.$ = window.jQuery = require("jquery");
 (function(cssSearch, $, undefined){
 
