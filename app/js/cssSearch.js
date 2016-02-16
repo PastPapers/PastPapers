@@ -53,27 +53,6 @@ window.$ = window.jQuery = require("jquery");
       var id = $($(".checked")[i]).attr("id");
       $.get($($(".checked")[i]).attr("__LINK"), function(data){
           papers[i]=data.data;
-          $.each(papers[i].downloads, function(key, val){
-              $.get(val, function(pdf){
-                  fs.stat("pdf", function(err, stat){
-                    if(err !== null || stat === "undefined"){
-                      try{
-                        fs.mkdir("pdf");
-                      }catch(e){
-                        if(e !== "EEXIST"){
-                          console.log(e);
-                        }
-                      }
-                    }
-                    fs.writeFile("pdf/"+papers[i].subject.id+'_'+key+".pdf", pdf, function(err){
-                      if(err){console.log(err)}
-                      if(!pdfHandler.checkpdf("../pdf/"+papers[i].subject.id+'_'+key+".pdf")){
-
-                      }
-                    });
-                  });
-              })
-          });
       });
     }
     return papers;
