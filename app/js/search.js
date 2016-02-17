@@ -42,6 +42,18 @@ window.$ = window.jQuery = require("jquery");
 		return false;
 	};
 
+	search.arrayRequest(query, searchdata){
+		for(var i = 0; i < searchData.length; i++){
+			if(searchData[i].constructor !== Array){
+				match = search.request(query, searchData);
+			}
+			else{
+				match = search.array(query, searchData[i]);
+			}
+			if(match){return match;}
+		}
+	}
+
 	search.objectValues = function(query, searchData){
 		var array = util.objectValuesToArrayRecurse(searchData);
 		return search.array(query, array);
@@ -56,5 +68,17 @@ window.$ = window.jQuery = require("jquery");
 		return search.Request($(selector).val(), searchData, query);
 	};
 
+	search.regex = function(query, searchData){
+		var searchRgx = new RegExp(query, "gi");
+		return searchRgx.search(searchData);
+	}
+
+	searh.regexArray = function(query, searhData){
+		var captures = [];
+		for(var i=0; i < searchData.length; i++){
+			captures.concat(search.regex(query, searchData[i]));
+		}
+		return captures;
+	}
 
 }(window.search = window.search || {}, jQuery));
