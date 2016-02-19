@@ -58,6 +58,22 @@ window.$ = window.jQuery = require("jquery");
         }
       });
       var content = pdfHandler.getPdfContent(file);
-    }
+	  var rgxstr = "";
+	  $.get("http://ppapi.lexteam.xyz/regex", function(data){
+		  util.iterateObject(data.data, function(key, value ){
+			 if(value.AppliesTo.board == paper.board &&
+					 paper.fallback == value.AppliesTo.fallback ){
+				
+					rgxstr=value.regex;
+				}
+			}
+		}
+		if(rgxstr !== ""){
+			 return search.regexArray(rgxstr, content);
+		}
+		else{
+			return false;
+		}
+	}
 
 })(window.pastPaper = window.pastPaper || {}, jQuery, pdf);
