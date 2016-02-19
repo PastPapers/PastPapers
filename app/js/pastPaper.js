@@ -51,36 +51,37 @@ window.$ = window.jQuery = require("jquery");
     //@param paper object.
     // uses local copy if download if not uses external via get.
     pastPaper.getQuestions = function(paper){
-      var file = "pdf/"+paper.subject.id+"_paper.pdf";
-      fs.stat(file, function(err, stat){
-        if(err !== null){
-          file = paper.downloads.paper;
-        }
-      });
+        var file = "pdf/"+paper.subject.id+"_paper.pdf";
+        fs.stat(file, function(err, stat){
+          if(err !== null){
+            file = paper.downloads.paper;
+          }
+        });
       var content = pdfHandler.getPdfContent(file);
-	  var rgxstr = {};
-	  $.get("http://ppapi.lexteam.xyz/regex", function(data){
-		  util.iterateObject(data.data, function(key, value ){
-			 if(value.AppliesTo.board === paper.board &&
-					 paper.fallback === value.AppliesTo.fallback ){
+  	  var rgxstr = {};
+  	  $.get("http://ppapi.lexteam.xyz/regex", function(data){
+  		  util.iterateObject(data.data, function(key, value ){
+  			 if(value.AppliesTo.board === paper.board &&
+  					 paper.fallback === value.AppliesTo.fallback ){
 
-					rgxstr.string=value.regex;
-				}
-        else if(value.AppliesTo.board == paper.board &&
-          value.AppliesTo.fallback){
-            rgxstr.fallback=value.regex;
-        }
-			}
-		}
-    if(typeof(rgxstr.string) !== "undefined"){
-		    return search.regexArray(rgxstr.string, content);
-    }
-    else if(typeof(rgxstr.fallback) !== "undefined"){
-      return search.regexArray(rgxstr.fallback, content);
-    }
-    else{
-      throw "no acceptable regex to use for "+paper.board;
-    }
+  					rgxstr.string=value.regex;
+  				}
+          else if(value.AppliesTo.board == paper.board &&
+            value.AppliesTo.fallback){
+              rgxstr.fallback=value.regex;
+          }
+  			}
+  		}
+      if(typeof(rgxstr.string) !== "undefined"){
+  		    return search.regexArray(rgxstr.string, content);
+      }
+      else if(typeof(rgxstr.fallback) !== "undefined"){
+        return search.regexArray(rgxstr.fallback, content);
+      }
+      else{
+        //throw here not in anon func so people do not get confused.
+        throw "no acceptable regex to use for "+paper.board;
+      }
 	}
 
 })(window.pastPaper = window.pastPaper || {}, jQuery, pdf);
