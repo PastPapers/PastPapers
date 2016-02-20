@@ -40,11 +40,11 @@ window.$ = window.jQuery = require("jquery");
                     }
                   }
                 }
-                fs.writeFile("pdf/"+paper.subject.id+'_'+key+".pdf", pdf, function(err){
-                  throw err;
-                });
               });
-          })
+              fs.writeFile("pdf/"+paper.subject.id+'_'+key+".pdf", pdf, function(err){
+                  throw err;
+              });
+          });
       });
     }
 
@@ -59,7 +59,7 @@ window.$ = window.jQuery = require("jquery");
         });
       var content = pdfHandler.getPdfContent(file);
   	  var rgxstr = {};
-  	  $.get("http://ppapi.lexteam.xyz/regex", function(data){
+  	  $.get("http://ppapi.lexteam.xyz/v1/regex", function(data){
   		  util.iterateObject(data.data, function(key, value ){
   			 if(value.AppliesTo.board === paper.board &&
   					 paper.fallback === value.AppliesTo.fallback ){
@@ -70,8 +70,8 @@ window.$ = window.jQuery = require("jquery");
             value.AppliesTo.fallback){
               rgxstr.fallback=value.regex;
           }
-  			}
-  		}
+  			});
+  		});
       if(typeof(rgxstr.string) !== "undefined"){
   		    return search.regexArray(rgxstr.string, content);
       }

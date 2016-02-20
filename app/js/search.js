@@ -42,7 +42,7 @@ window.$ = window.jQuery = require("jquery");
 		return false;
 	};
 
-	search.arrayRequest(query, searchdata){
+	search.arrayRequest = function(query, searchdata){
 		for(var i = 0; i < searchData.length; i++){
 			if(searchData[i].constructor !== Array){
 				match = search.request(query, searchData);
@@ -73,7 +73,7 @@ window.$ = window.jQuery = require("jquery");
 		return searchRgx.search(searchData);
 	}
 
-	searh.regexArray = function(query, searhData){
+	search.regexArray = function(query, searhData){
 		var captures = [];
 		for(var i=0; i < searchData.length; i++){
 			captures.concat(search.regex(query, searchData[i]));
