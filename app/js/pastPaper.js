@@ -58,28 +58,10 @@ window.$ = window.jQuery = require("jquery");
           }
         });
       var content = pdfHandler.getPdfContent(file);
-  	  var rgxstr = {};
-  	  $.get("http://ppapi.lexteam.xyz/v1/regex", function(data){
-  		  util.iterateObject(data.data, function(key, value ){
-  			 if(value.AppliesTo.board === paper.board &&
-  					 paper.fallback === value.AppliesTo.fallback ){
-
-  					rgxstr.string=value.regex;
-  				}
-          else if(value.AppliesTo.board == paper.board &&
-            value.AppliesTo.fallback){
-              rgxstr.fallback=value.regex;
-          }
-  			});
-  		});
-      if(typeof(rgxstr.string) !== "undefined"){
-  		    return search.regexArray(rgxstr.string, content);
-      }
-      else if(typeof(rgxstr.fallback) !== "undefined"){
-        return search.regexArray(rgxstr.fallback, content);
+      if(paper.regex !== ""){
+  		    return search.regexArray(paper.regex, content);
       }
       else{
-        //throw here not in anon func so people do not get confused.
         throw "no acceptable regex to use for "+paper.board;
       }
 	}
