@@ -16,6 +16,8 @@ window.$ = window.jQuery = require("jquery");
     });
   }
 
+  // warning: does not get images.
+  //@throwable: if fails getting document will throw error.
   pdfHandler.getPdfContent = function(file){
     var Content = [];
     pdf.getDocument(file).then(function(doc){
@@ -35,11 +37,7 @@ window.$ = window.jQuery = require("jquery");
             });
         });
       }
-    },function(err){
-      console.log("error");
-      console.log(err);
-      return false;
-    });
+    },function(err){throw err;});
     return Content;
   }
 
