@@ -10,35 +10,39 @@ window.$ = window.jQuery = require("jquery");
 // still trying to work out how to extract images.
   pdfHandler.testPdf=function(file){
     pdf.getDocument(file).then(function(doc){
-      doc.getMetaData().then(function(meta){
-        return meta.metadata.metaDocument.images;
-      })
+
     });
   }
+
+  pdfHandler.handlePdfText = function(text){
+    var content = "";
+      for(var v=0; v < text.items.length; v++){
+          if(typeof(text.items[v].str) !== "undefined"){
+            if(typeof(content) !== "undefined"){
+              content += " " + text.items[v].str;
+            }
+            else{
+              content = text.items[v].str;
+            }
+          }
+        }
+      return content;
+    }
 
   // warning: does not get images.
   //@throwable: if fails getting document will throw error.
   pdfHandler.getPdfContent = function(file){
     var Content = [];
-    pdf.getDocument(file).then(function(doc){
-      for(let i = 0 ; i <= doc.numPages; i++){
-        doc.getPage(i).then(function(page){
-          page.getTextContent().then(function(text){
-                for(var v=0; v < text.items.length; v++){
-                  if(typeof(text.items[v].str) !== "undefined"){
-                    if(typeof(Content[i]) !== "undefined"){
-                      Content[i] += " " + text.items[v].str;
-                    }
-                    else{
-                      Content[i] = text.items[v].str;
-                    }
-                  }
-                }
-            });
-        });
+    pdf.getDocument(file).then(function(doc){;
+      promises = [];
+      for(var i =0; i < doc.numPages; i++){
+        promises.push(doc.getPage(i));
       }
-    },function(err){throw err;});
-    return Content;
+      return Promise.all(promises);
+    },
+    function(err){
+      throw err;
+    })
   }
 
 }(window.pdfHandler = window.pdfHandler || {}, jQuery, pdf));
