@@ -34,7 +34,9 @@ window.$ = window.jQuery = require("jquery");
 // still trying to work out how to extract images.
   pdfHandler.testPdf=function(file){
     pdf.getDocument(file).then(function(doc){
-
+		doc.getPage(1).then(function(page){
+			console.log(page.objs.resolve());
+		});
     });
   }
 
