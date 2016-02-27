@@ -48,14 +48,11 @@ window.$ = window.jQuery = require("jquery");
 
   //@return Array of __LINK s from checktable.
   cssSearch.submitCheckTableData = function(){
-    var papers = [];
+    var promises = [];
     for(var i=0; i < $(".checked").length; i++){
-      var id = $($(".checked")[i]).attr("id");
-      $.get($($(".checked")[i]).attr("__LINK"), function(data){
-          papers[i]=data.data;
-      });
+      promises.push(Promise.resolve($.get($($(".checked")[i]).attr("__LINK")));
     }
-    return papers;
+    return Promise.all(promises);
   }
 
 }(window.cssSearch = window.cssSearch || {}, jQuery));
