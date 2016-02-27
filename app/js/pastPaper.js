@@ -68,7 +68,6 @@ window.$ = window.jQuery = require("jquery");
       else{
         throw "no acceptable regex to use for "+paper.board;
       }
-	   
 	}
 
 })(window.pastPaper = window.pastPaper || {}, jQuery, pdf);

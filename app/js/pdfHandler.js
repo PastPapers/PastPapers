@@ -34,7 +34,10 @@ window.$ = window.jQuery = require("jquery");
 // still trying to work out how to extract images.
   pdfHandler.testPdf=function(file){
     pdf.getDocument(file).then(function(doc){
-
+      console.log(doc);
+      doc.getStats().then(function(stat){
+        console.log(stat);
+      });
     });
   }
 
@@ -58,8 +61,8 @@ window.$ = window.jQuery = require("jquery");
 						}
 					}
 					return content;
-				});	
-			}	
+				});
+			}
 		));
       }
 
