@@ -61,9 +61,26 @@ window.$ = window.jQuery = require("jquery");
             file = paper.downloads.paper;
           }
         });
-      var content = pdfHandler.getPdfContent(file);
-      if(paper.regex !== ""){
-  		    return search.regexArray(paper.regex, content);
+
+      var regex = {};
+   	  $.get("http://ppapi.lexteam.xyz/v1/regex", function(data){
+     		util.iterateObject(data.data, function(key, value ){
+     			if(value.AppliesTo.board === paper.board &&
+            paper.fallback === value.AppliesTo.fallback ){
+       			    regex.string=value.regex;
+       			}
+            else if(value.AppliesTo.board == paper.board &&
+              value.AppliesTo.fallback){
+                regex.fallback=value.regex;
+            }
+     		});
+   		});
+
+      if(regex.string !== ""){
+  		    return search.regexArray(regex.string, content);
+      }
+      else if(regex.fallback !== ""){
+          return search.regexArray(regex.fallback, content);
       }
       else{
         throw "no acceptable regex to use for "+paper.board;
