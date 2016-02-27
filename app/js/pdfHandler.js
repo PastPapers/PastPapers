@@ -45,32 +45,31 @@ window.$ = window.jQuery = require("jquery");
   //@throwable: if fails getting document will throw error.
   pdfHandler.getPdfContent = function(file){
     return pdf.getDocument(file).then(function(doc){
-      var promises = [];
-      for(var i =1; i < doc.numPages; i++){ promises.push(doc.getPage(i)
-			.then(function(page){
-				return page.getTextContent().then(function(text){
-					var content = "";
-					for(var v=0; v < text.items.length; v++){
-						if(typeof(text.items[v].str) !== "undefined"){
-							if(typeof(content) !== "undefined"){
-							  content += " " + text.items[v].str;
-							}
-							else{
-							  content = text.items[v].str;
-							}
-						}
-					}
-					return content;
-				});
-			}
-		));
+        var promises = [];
+        for(var i =1; i < doc.numPages; i++){ promises.push(doc.getPage(i)
+    			.then(function(page){
+    				return page.getTextContent().then(function(text){
+    					var content = "";
+    					for(var v=0; v < text.items.length; v++){
+    						if(typeof(text.items[v].str) !== "undefined"){
+    							if(typeof(content) !== "undefined"){
+    							  content += " " + text.items[v].str;
+    							}
+    							else{
+    							  content = text.items[v].str;
+    							}
+    						}
+    					}
+    					return content;
+    				});
+    			}
+    		));
       }
-
-	  return Promise.all(promises);
+  	  return Promise.all(promises);
     },
     function(err){
       throw err;
-	});
+	  });
   }
 
 }(window.pdfHandler = window.pdfHandler || {}, jQuery, pdf));

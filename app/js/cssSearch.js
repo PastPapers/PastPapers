@@ -46,13 +46,21 @@ window.$ = window.jQuery = require("jquery");
     }
   }
 
-  //@return Array of __LINK s from checktable.
+  //@return Array of papers.
   cssSearch.submitCheckTableData = function(){
     var promises = [];
     for(var i=0; i < $(".checked").length; i++){
-      promises.push(Promise.resolve($.get($($(".checked")[i]).attr("__LINK")));
+      promises.push(Promise.resolve($.get($($(".checked")[i]).attr("__LINK"))));
     }
-    return Promise.all(promises);
+    return Promise.all(promises).then(function(data){
+      var papers = [];
+      for(var i=0; i<data.length; i++){
+        if(!data.error){
+          papers[i] = data[i].data;
+        }
+      }
+      return papers;
+    });
   }
 
 }(window.cssSearch = window.cssSearch || {}, jQuery));
