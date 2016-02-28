@@ -25,6 +25,7 @@
     "electron-prebuilt": "^0.36.2",
     "jquery": "^2.1.4",
     "mdi": "^1.4.57",
-    "node-ensure": "0.0.0"
+    "node-ensure": "0.0.0",
+    "pdfjs-dist": "^1.4.93"
   }
 }

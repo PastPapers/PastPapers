@@ -52,23 +52,44 @@ window.$ = window.jQuery = require("jquery");
       });
     }
 
-    //@param paper object.
+    // @param paper object.
     // uses local copy if download if not uses external via get.
+    // throws err on failure.
     pastPaper.getQuestions = function(paper){
         var file = "pdf/"+paper.subject.id+"_paper.pdf";
         fs.stat(file, function(err, stat){
           if(err !== null){
             file = paper.downloads.paper;
           }
+
         });
-      var content = pdfHandler.getPdfContent(file);
-      if(paper.regex !== ""){
-  		    return search.regexArray(paper.regex, content);
-      }
-      else{
-        throw "no acceptable regex to use for "+paper.board;
-      }
-	   
+
+        return pdfHandler.getPdfContent(file).then(function(content){
+          var regex = {};
+          $.get("http://ppapi.lexteam.xyz/v1/regex", function(data){
+            util.iterateObject(data.data, function(key, value ){
+              if(value.AppliesTo.board === paper.board &&
+                paper.fallback === value.AppliesTo.fallback ){
+                    regex.string=value.regex;
+                }
+                else if(value.AppliesTo.board == paper.board &&
+                  value.AppliesTo.fallback){
+                    regex.fallback=value.regex;
+                }
+            });
+          });
+
+          if(regex.string !== ""){
+              return search.regexArray(regex.string, content);
+          }
+          else if(regex.fallback !== ""){
+              return search.regexArray(regex.fallback, content);
+          }
+          else{
+            throw "no acceptable regex to use for "+paper.board;
+          }
+      });
 	}
+
 
 })(window.pastPaper = window.pastPaper || {}, jQuery, pdf);

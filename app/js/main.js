@@ -47,7 +47,7 @@ function fixTileSquareHeight(){
 $(document).ready(function(){
 	cssSlider.clickable.push(".unchecked", ".checked");
 	fixTileSquareHeight();
-	
+
 	$(document).on("click", ".unchecked", function(e){
 		util.replaceClass(this, "unchecked", "checked");
 		$(this).html("check_box");
