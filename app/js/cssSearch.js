@@ -31,8 +31,8 @@ window.$ = window.jQuery = require("jquery");
   		$(responseId).empty();
   			for(var i = 0; i < json.length; i++){
           if(search.objectValues($(inputId).val(), json[i], searchVar)){
-    				var html = "<tr class='checkitem'>";
-    				if($("#checkitem"+json[i].id).length === 0){
+    		var html = "<tr class='checkitem'>";
+    		if($("#checkitem"+json[i].id).length === 0){
                 util.iterateObject(json[i], function(key, val){
                   if(util.blacklistArray(key, blacklist)){
                       html += "<th>"+val+"</th>";

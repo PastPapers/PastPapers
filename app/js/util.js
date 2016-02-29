@@ -177,4 +177,5 @@ window.$ = window.jQuery = require("jquery");
 		util.whitelistArray = function(string, whitelist){
 			return !util.blacklistArray(string, whitelist);
 		}
+
 }(window.util = window.util || {}, jQuery));

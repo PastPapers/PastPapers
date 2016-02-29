@@ -45,12 +45,27 @@ window.$ = window.jQuery = require("jquery");
                   }
                 }
               });
-              fs.writeFile("pdf/"+paper.subject.id+'_'+key+".pdf", pdf, function(err){
+              fs.writeFile("pdf/"+val+".pdf", pdf, function(err){
                   throw err;
               });
           });
       });
     }
+
+		pastPaper.getContent = function(paper){
+			var promises = [];
+			util.iterateObject(paper.downloads, function(key, val){
+						promises.append(pdfHandler.getPdfContent(paper.downloads[i])).then(
+							function(content){
+								var obj = {};
+								obj[key] = content;
+								return obj;
+							}
+						));
+			});
+
+			return Promsise.all(promises);
+		}
 
 	pastPaper.getRegex = function(paper){
 		var regex = {};
@@ -63,7 +78,7 @@ window.$ = window.jQuery = require("jquery");
 				}
 				else if(value.AppliesTo.board == paper.board &&
 					value.AppliesTo.fallback){
-						
+
 						regex.fallback=value.regex;
 				}
 			});
@@ -76,29 +91,28 @@ window.$ = window.jQuery = require("jquery");
     // throws err on failure.
 	// returns object with the papers questions and its corrsponding markscheme.
     pastPaper.getQuestionsAndMarkscheme = function(paper){
+			var regex = pastPaper.getRegex(paper);
 
-		//get stuffs
-	
-		var regex = pastPaper.getRegex(paper);
-			
-		return pdfHandler.getPdfContent(file).then(function(content){
-          if(typeof(regex.string) !== "undefined"){
-			return {
-				  paper:search.regexArray(regex.string.paper, paperContent),
-				  markscheme:search.regexArray(regex.string.markscheme, markschemeContent)
-		    }
-          }
-          else if(typeof(regex.fallback) !== "undefined"){
-		  	return {
-				  paper:search.regexArray(regex.fallback.paper, paperContent),
-				  markscheme:search.regexArray(regex.fallback.markscheme, markschemeContent)
-		    }
-          }
-          else{
-            throw "no acceptable regex to use for "+paper.board;
-          }
-      	});
-	}
+			return pastPaper.getContent(paper).then(
+				function(content){
+			    if(typeof(regex.string) !== "undefined"){
+						return {
+							  paper:search.regexArray(regex.string.paper, content.paper),
+							  markscheme:search.regexArray(regex.string.markscheme, content.markscheme)
+					  }
+			    }
+			    else if(typeof(regex.fallback) !== "undefined"){
+					  	return {
+							  paper:search.regexArray(regex.fallback.paper, content.paper),
+							  markscheme:search.regexArray(regex.fallback.markscheme, content.markscheme)
+					    }
+			    }
+			    else{
+			          throw "no acceptable regex to use for "+paper.board;
+			    }
+	    	}
+			);
+		}
 
 
 })(window.pastPaper = window.pastPaper || {}, jQuery, pdf);
