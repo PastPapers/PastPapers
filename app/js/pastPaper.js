@@ -31,6 +31,10 @@ window.$ = window.jQuery = require("jquery");
 
 (function(pastPaper, $, pdf,  undefined){
 
+    pastPaper.test = function(paper){
+
+    }
+
     pastPaper.download = function(paper){
       $.each(paper.downloads, function(key, val){
           $.get(val, function(pdf){
@@ -54,30 +58,30 @@ window.$ = window.jQuery = require("jquery");
 
 		pastPaper.getContent = function(paper){
 			var promises = [];
-			util.iterateObject(paper.downloads, function(key, val){
-						promises.append(pdfHandler.getPdfContent(paper.downloads[i])).then(
+      for(var i=0; i < Object.keys(paper.downloads); i++){
+						promises.append(pdfHandler.getPdfContent(paper.downloads[i]).then(
 							function(content){
 								var obj = {};
 								obj[key] = content;
 								return obj;
 							}
 						));
-			});
+			}
 
-			return Promsise.all(promises);
+			return Promise.all(promises);
 		}
 
 	pastPaper.getRegex = function(paper){
 		var regex = {};
 		$.get("http://ppapi.lexteam.xyz/v1/regex", function(data){
 			util.iterateObject(data.data, function(key, value ){
-				if(value.appliesto.board === paper.board &&
-					paper.fallback === value.appliesto.fallback ){
+				if(value.board === paper.board &&
+					paper.fallback === value.fallback ){
 
 						regex.string=value.regex;
 				}
-				else if(value.AppliesTo.board == paper.board &&
-					value.AppliesTo.fallback){
+				else if(value.board === paper.board &&
+					value.fallback){
 
 						regex.fallback=value.regex;
 				}
@@ -87,8 +91,8 @@ window.$ = window.jQuery = require("jquery");
 		return regex;
 	}
 
-    // @param paper object.
-    // throws err on failure.
+  // @param paper object.
+  // throws err on failure.
 	// returns object with the papers questions and its corrsponding markscheme.
     pastPaper.getQuestionsAndMarkscheme = function(paper){
 			var regex = pastPaper.getRegex(paper);
