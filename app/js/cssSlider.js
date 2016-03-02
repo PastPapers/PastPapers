@@ -105,7 +105,7 @@ $(document).ready(function(){
 $(document).mousemove(function(e){
     var clickableSlider=cssSlider.clickable.concat(cssSlider.sliderButtons);
     if(util.intersectsOneOf(clickableSlider)){
-      if(util.intersectOneOfPointArea(cssSlider.clickable, {left:e.pageX, top:e.pageY}, {width:350, height:200})){
+      if(util.intersectOneOfPointArea(cssSlider.clickable, {left:e.pageX, top:e.pageY}, {width:21.925, height:100})){
         $(".slide-button").removeClass("slidebutton-hover");
       }
       else{

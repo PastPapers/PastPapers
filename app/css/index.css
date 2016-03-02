@@ -67,6 +67,10 @@ button::selection{
 a{
   text-decoration: none;
 }
+textarea{
+  width:90%;
+  height:75%;
+}
 .grid, .tile-container{
   display: flex;
   justify-content: center;
@@ -83,7 +87,6 @@ a{
   margin:auto;
   padding:0.25em;
 }
-
 .tile-container{
   height:97.5vh;
   width:97.5vw;
@@ -133,7 +136,6 @@ a{
   top:0;
   transition: background-color ease 0.25s;
 }
-
 .slidebutton-hover{
   z-index:10;
 }
@@ -143,7 +145,6 @@ a{
 .slidebutton-hover:hover > .slide-arrow{
   opacity: 1;
 }
-
 .slide-arrow::selection{
     background-color: rgba(0,0,0,0);
 }
@@ -164,6 +165,20 @@ a{
   left:200vw;
   top:50%;
   transform: translateY(-50%);
+}
+.question{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  text-align: left;
+  flex-direction: column;
+  top:0;
+  width: 100vw;
+  height: 90vh;
+  margin: 1em;
+}
+.title{
+  margin: 0;
 }
 
 /* js classes / html overrides. */

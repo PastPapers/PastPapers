@@ -31,8 +31,12 @@ window.$ = window.jQuery = require("jquery");
 
 (function(pastPaper, $, pdf,  undefined){
 
-    pastPaper.test = function(paper){
-
+    pastPaper.test = function(){
+      return cssSearch.getSubmitCheckTableData().then(function(paper){
+        return pastPaper.getRegex(paper).then(function(data){
+            return data;
+        });
+      });
     }
 
     pastPaper.download = function(paper){
@@ -102,13 +106,13 @@ window.$ = window.jQuery = require("jquery");
 			    if(typeof(regex.string) !== "undefined"){
 						return {
 							  paper:search.regexArray(regex.string.paper, content.paper),
-							  markscheme:search.regexArray(regex.string.markscheme, content.markscheme)
+							  markscheme:search.regexArray(regex.string.mark_scheme, content.mark_scheme)
 					  }
 			    }
 			    else if(typeof(regex.fallback) !== "undefined"){
 					  	return {
 							  paper:search.regexArray(regex.fallback.paper, content.paper),
-							  markscheme:search.regexArray(regex.fallback.markscheme, content.markscheme)
+							  markscheme:search.regexArray(regex.fallback.mark_scheme, content.mark_scheme)
 					    }
 			    }
 			    else{
