@@ -31,14 +31,6 @@ window.$ = window.jQuery = require("jquery");
 
 (function(pastPaper, $, pdf,  undefined){
 
-    pastPaper.test = function(){
-      return cssSearch.getSubmitCheckTableData().then(function(paper){
-        return pastPaper.getRegex(paper).then(function(data){
-            return data;
-        });
-      });
-    }
-
     pastPaper.download = function(paper){
       $.each(paper.downloads, function(key, val){
           $.get(val, function(pdf){
@@ -122,5 +114,10 @@ window.$ = window.jQuery = require("jquery");
 			);
 		}
 
+    pastPaper.test = function(){
+      return cssSearch.submitCheckTableData().then(function(paper){
+        return pastPaper.getRegex(paper);
+      });
+    }
 
 })(window.pastPaper = window.pastPaper || {}, jQuery, pdf);
