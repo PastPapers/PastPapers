@@ -70,18 +70,16 @@ window.$ = window.jQuery = require("jquery");
 	pastPaper.getRegex = function(paper){
 		var regex = {};
 		$.get("http://ppapi.lexteam.xyz/v1/regex", function(data){
-			util.iterateObject(data.data, function(key, value ){
-				if(value.board === paper.board &&
-					paper.fallback === value.fallback ){
-
-						regex.string=value.regex;
+			for(var i=0; i < data.data.length; i++){
+				if(data.data[i].board === paper.board &&
+					paper.data.fallback === data.data[i].fallback ){
+						regex.string = data.data[i].regex;
 				}
-				else if(value.board === paper.board &&
-					value.fallback){
-
-						regex.fallback=value.regex;
+				else if(data.data[i].board === paper.board &&
+					data.data[i].fallback){
+						regex.fallback = data.data[i].regex;
 				}
-			});
+			}
 		});
 
 		return regex;
@@ -116,7 +114,7 @@ window.$ = window.jQuery = require("jquery");
 
     pastPaper.test = function(){
       return cssSearch.submitCheckTableData().then(function(paper){
-        return pastPaper.getRegex(paper);
+        return pastPaper.getRegex(paper[0]);
       });
     }
 
