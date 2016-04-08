@@ -95,14 +95,14 @@ window.$ = window.jQuery = require("jquery");
 				function(content){
 			    if(typeof(regex.string) !== "undefined"){
 						return {
-							  paper:search.regexArray(regex.string.paper, content.paper),
-							  markscheme:search.regexArray(regex.string.mark_scheme, content.mark_scheme)
+							  paper : search.regexArray(regex.string.paper, content.paper),
+							  markscheme : search.regexArray(regex.string.mark_scheme, content.mark_scheme)
 					  }
 			    }
 			    else if(typeof(regex.fallback) !== "undefined"){
 					  	return {
-							  paper:search.regexArray(regex.fallback.paper, content.paper),
-							  markscheme:search.regexArray(regex.fallback.mark_scheme, content.mark_scheme)
+							  paper : search.regexArray(regex.fallback.paper, content.paper),
+							  markscheme : search.regexArray(regex.fallback.mark_scheme, content.mark_scheme)
 					    }
 			    }
 			    else{
