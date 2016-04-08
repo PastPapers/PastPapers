@@ -10,6 +10,11 @@ The program works by communicating with a REST API, which has an index of all th
 on how to read them. The program then goes onto download the paper from it's original location. With the rest of the 
 data given to it by the API PastPapers is able to 'decipher' the pdf file.
 
+## problems 
+
+as extraction of images via pdf.js has became very difficult we are making a new version to do it.
+
+
 ## What does it use?
 
 We use:
