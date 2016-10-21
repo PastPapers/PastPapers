@@ -57,7 +57,7 @@ https://regex101.com/r/eG5qW1/17#javascript
 this can be more easly done by matching the number of marks shown, although there is grabage text before the question(the dotted lines to place a question). this will hopefully work with the papers that have unreadable question notations e.g. RE
 (?:\[\d\s*\w+\]|^)*([\w\W]*?)(?:\[\d\s*\w+\]|$)
 
-to remove dotted lines:
+to remove dotted lines and end of page garbage:
 (?:\[\d\s*\w+\]|^)*(?:[\.\n]+)*([\w\W]*?)(?:\[\d\s*\w+\])
 
 but it is better to do this in a another regex with 
